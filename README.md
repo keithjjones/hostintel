@@ -10,7 +10,7 @@ usage: hostintel.py [-h] [-a] [-v] [-n] InputFile
 Look up host intelligence information.
 
 positional arguments:
-  InputFile   Input file, one host per line (IP, domain, or DNS host name)
+  InputFile   Input file, one host per line (IP, domain, or FQDN host name)
 
 optional arguments:
   -h, --help  show this help message and exit
