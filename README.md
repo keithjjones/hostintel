@@ -11,7 +11,7 @@ Hosts are identified by DNS, domain, or IP address.
 
 ## Resources:
 
-   - https://github.com/maxmind/GeoIP2-python
+   - The GeoIP2 Python library - https://github.com/maxmind/GeoIP2-python
 
 ```
 This product includes GeoLite2 data created by MaxMind, available from
