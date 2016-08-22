@@ -5,8 +5,9 @@ Hosts are identified by DNS, domain, or IP address.
 
 ## Intelligence Sources:
 
-   - VirusTotal (Private API Key Required)
-   - NeutrinoAPI (API Key Required)
+   - VirusTotal (Private API key required)
+   - NeutrinoAPI (API key required)
+   - GeoLite2 (No network I/O required)
 
 ## Resources:
 
