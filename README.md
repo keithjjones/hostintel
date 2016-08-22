@@ -3,6 +3,22 @@
 This tool is used to collect various intelligence sources for hosts.
 Hosts are identified by DNS, domain, or IP address.
 
+```
+$ python hostintel.py -h
+usage: hostintel.py [-h] [-a] [-v] [-n] InputFile
+
+Look up host intelligence information.
+
+positional arguments:
+  InputFile   Input file, one host per line (IP, domain, or DNS host name)
+
+optional arguments:
+  -h, --help  show this help message and exit
+  -a          Perform All Lookups.
+  -v          VirusTotal Lookup.
+  -n          NeutrinoAPI Lookup.
+```
+
 ## Intelligence Sources:
 
    - VirusTotal (Private API key required)
