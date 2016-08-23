@@ -22,7 +22,8 @@ import dns
 #
 
 # Setup command line argument parsing.
-parser = argparse.ArgumentParser(description='Look up host intelligence information.')
+parser = argparse.ArgumentParser(
+    description='Look up host intelligence information. Outputs CSV to STDOUT.')
 parser.add_argument('ConfigurationFile', help='Configuration file')
 parser.add_argument('InputFile',
                     help='Input file, one host per line (IP, domain, or FQDN host name)')

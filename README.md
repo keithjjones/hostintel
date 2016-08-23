@@ -4,19 +4,21 @@ This tool is used to collect various intelligence sources for hosts.
 Hosts are identified by FQDN host name, Domain, or IP address.
 
 ```
-$ python hostintel.py -h
-usage: hostintel.py [-h] [-a] [-v] [-n] InputFile
+$python hostintel.py -h
+usage: hostintel.py [-h] [-a] [-v] [-n] ConfigurationFile InputFile
 
-Look up host intelligence information.
+Look up host intelligence information.  Outputs CSV to STDOUT.
 
 positional arguments:
-  InputFile   Input file, one host per line (IP, domain, or FQDN host name)
+  ConfigurationFile  Configuration file
+  InputFile          Input file, one host per line (IP, domain, or FQDN host
+                     name)
 
 optional arguments:
-  -h, --help  show this help message and exit
-  -a          Perform All Lookups.
-  -v          VirusTotal Lookup.
-  -n          NeutrinoAPI Lookup.
+  -h, --help         show this help message and exit
+  -a                 Perform All Lookups.
+  -v                 VirusTotal Lookup.
+  -n                 NeutrinoAPI Lookup.
 ```
 
 # Install:
@@ -27,9 +29,10 @@ $pip install -r requirements.txt
 
 # Intelligence Sources:
 
-   - VirusTotal (Private API key required)
-   - NeutrinoAPI (API key required)
-   - GeoLite2 (No network I/O required)
+  - DNS
+  - VirusTotal (Private API key required)
+  - NeutrinoAPI (API key required)
+  - GeoLite2 (No network I/O required)
 
 # Resources:
 
