@@ -18,6 +18,10 @@ import sys
 import dns.resolver
 # Required for regular expressions
 import re
+# Required for VirusTotal API
+from virus_total_apis import PublicApi as VirusTotalPublicApi
+# Required for sleep function
+import time
 
 #
 # FUNCTIONS
@@ -106,6 +110,7 @@ except:
 try:
     geo = geoip2.database.Reader(geoip2citydb)
 except:
+    print geoip2citydb
     print "ERROR: Cannot open GEOIP2 City Database!"
     exit(1)
     
@@ -113,7 +118,7 @@ except:
 output = csv.writer(sys.stdout)
 
 # Print the header to STDOUT
-output.writerow(['Input Host','IPv4','FQDN','Country','Postal','City','State','Lat','Long']);
+output.writerow(['Input Host','IPv4','FQDN','Country','Postal','City','State','Lat','Long','VirusTotal Detected URLs','VirusTotal Detected Communicating Samples','VirusTotal Detected Downloaded Samples']);
 
 # Iterate through all of the input hosts
 for host in hosts:
@@ -121,11 +126,16 @@ for host in hosts:
     ipv4 = fqdn = \
     geodata = geocountry = \
     geopostal = geocity = geosubdivision = \
-    geolat = geolong = ''
+    geolat = geolong = \
+    vtdetectedurls = \
+    vtdetectedcommunicatingsamples = \
+    vtdetecteddownloadedsamples = ''
     
     # Pull the GeoIP2 information...
     if IsIPv4(host):
         ipv4=host
+    else:
+        fqdn = host
         
     try:
         geodata = geo.city(host)
@@ -141,14 +151,47 @@ for host in hosts:
     # Pull the DNS information...
     if args.dns or args.all:
         if IsIPv4(host):
-            ipv4 = host
             fqdn = '; '.join(map(str,DNSLookupHost(host)))
         else:
             ipv4 = '; '.join(map(str,DNSLookupHost(host)))
-            fqdn = host        
 
+    # Pull the VirusTotal information
+    if args.virustotal or args.all:
+        vtapi = ConfigFile.get('VirusTotal','PublicAPI')
+        vt = VirusTotalPublicApi(vtapi)
+        if IsIPv4(host):
+            vtresponse = vt.get_ip_report(host)
+            while vtresponse["response_code"] != 200:
+                time.sleep(60)  # Sleep for the API throttling
+                vtresponse = vt.get_ip_report(host)
+            if vtresponse["results"].has_key("detected_urls"):
+                vtdetectedurls = str(len(vtresponse["results"]["detected_urls"]))
+            else:
+                vtdetectedurls = str(0)
+            if vtresponse["results"].has_key("detected_communicating_samples"):
+                vtdetectedcommunicatingsamples = str(len(vtresponse["results"]["detected_communicating_samples"]))
+            else:
+                vtdetectedcommunicatingsamples = str(0)
+        else:
+            vtresponse = vt.get_domain_report(host)
+            while vtresponse["response_code"] != 200:
+                time.sleep(60)  # Sleep for the API throttling
+                vtresponse = vt.get_domain_report(host)
+            if vtresponse["results"].has_key("detected_urls"):
+                vtdetectedurls = str(len(vtresponse["results"]["detected_urls"]))
+            else:
+                vtdetectedurls = str(0)
+            if vtresponse["results"].has_key("detected_communicating_samples"):
+                vtdetectedcommunicatingsamples = str(len(vtresponse["results"]["detected_communicating_samples"]))
+            else:
+                vtdetectedcommunicatingsamples = str(0)
+            if vtresponse["results"].has_key("detected_downloaded_samples"):
+                vtdetecteddownloadedsamples = str(len(vtresponse["results"]["detected_downloaded_samples"]))
+            else:
+                vtdetecteddownloadedsamples = str(0)
+                
     # Print the output line
-    output.writerow([host,ipv4,fqdn,geocountry,geopostal,geocity,geosubdivision,geolat,geolong])
+    output.writerow([host,ipv4,fqdn,geocountry,geopostal,geocity,geosubdivision,geolat,geolong,vtdetectedurls,vtdetectedcommunicatingsamples,vtdetecteddownloadedsamples])
 
 # Close the GEOIP2 database
 geo.close()
