@@ -15,7 +15,51 @@ import csv
 # Required for STDOUT
 import sys
 # Required for DNS lookups
-import dns
+import dns.resolver
+# Required for regular expressions
+import re
+
+#
+# FUNCTIONS
+#
+
+# Function to determine if host is an IPv4 address
+def IsIPv4(host):
+    if re.match('[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}',host):
+        return True
+    else:
+        return False
+
+# Function to determine if host is a domain (only one period in host)
+def IsDomain(host):
+    if re.match('[^\.]*\.[^\.]*',host):
+        return True
+    else:
+        return False
+
+# Function to determine if host is a FQDN host name
+def IsFQDN(host):
+    if IsIPv4(host) or IsDomain(host):
+        return False
+    else:
+        return True
+
+# Function to create reverse lookup address, inspired by:
+# http://www.iodigitalsec.com/performing-dns-queries-python/
+def ReverseAddress(IP):
+    RevIP = '.'.join(reversed(IP.split('.'))) + '.in-addr.arpa'
+    return RevIP
+
+# Function to DNS lookup host
+def DNSLookupHost(host):
+    try:
+        if IsIPv4(host):
+            return dns.resolver.query(ReverseAddress(host),'PTR')
+        else:
+            return dns.resolver.query(host,'A')
+    except:
+        return []
+    
 
 #
 # COMMAND LINE ARGS
@@ -27,9 +71,14 @@ parser = argparse.ArgumentParser(
 parser.add_argument('ConfigurationFile', help='Configuration file')
 parser.add_argument('InputFile',
                     help='Input file, one host per line (IP, domain, or FQDN host name)')
-parser.add_argument('-a', action='store_true', help='Perform All Lookups.')
-parser.add_argument('-v', action='store_true', help='VirusTotal Lookup.')
-parser.add_argument('-n', action='store_true', help='NeutrinoAPI Lookup.')
+parser.add_argument('-a','--all', action='store_true', help='Perform All Lookups.')
+parser.add_argument('-d','--dns',  action='store_true', help='DNS Lookup.')
+parser.add_argument('-v','--virustotal', action='store_true', help='VirusTotal Lookup.')
+parser.add_argument('-n','--neutrino', action='store_true', help='NeutrinoAPI Lookup.')
+
+#
+# MAIN PROGRAM
+#
 
 # Parse command line arguments.
 args = parser.parse_args()
@@ -64,10 +113,16 @@ except:
 output = csv.writer(sys.stdout)
 
 # Print the header to STDOUT
-output.writerow(['Input Host','Country','Postal','City','State','Lat','Long']);
+output.writerow(['Input Host','IPv4','FQDN','Country','Postal','City','State','Lat','Long']);
 
 # Iterate through all of the input hosts
 for host in hosts:
+    # Clear variables
+    ipv4 = fqdn = \
+    geodata = geocountry = \
+    geopostal = geocity = geosubdivision = \
+    geolat = geolong = ''
+    
     # Pull the GeoIP2 information...
     try:
         geodata = geo.city(host)
@@ -80,10 +135,21 @@ for host in hosts:
     except:
         geodata = geocountry = geopostal = geocity = geosubdivision = geolat = geolong = ''
 
+    if args.dns:
+        if IsIPv4(host):
+            ipv4 = host
+            fqdn = '; '.join(map(str,DNSLookupHost(host)))
+        else:
+            ipv4 = '; '.join(map(str,DNSLookupHost(host)))
+            fqdn = host        
+
     # Print the output line
-    output.writerow([host,geocountry,geopostal,geocity,geosubdivision,geolat,geolong])
+    output.writerow([host,ipv4,fqdn,geocountry,geopostal,geocity,geosubdivision,geolat,geolong])
 
 # Close the GEOIP2 database
 geo.close()
+
+# Exit without error
+exit(0)
     
 

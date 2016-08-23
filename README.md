@@ -5,9 +5,9 @@ Hosts are identified by FQDN host name, Domain, or IP address.
 
 ```
 $python hostintel.py -h
-usage: hostintel.py [-h] [-a] [-v] [-n] ConfigurationFile InputFile
+usage: hostintel.py [-h] [-a] [-d] [-v] [-n] ConfigurationFile InputFile
 
-Look up host intelligence information.  Outputs CSV to STDOUT.
+Look up host intelligence information. Outputs CSV to STDOUT.
 
 positional arguments:
   ConfigurationFile  Configuration file
@@ -16,12 +16,15 @@ positional arguments:
 
 optional arguments:
   -h, --help         show this help message and exit
-  -a                 Perform All Lookups.
-  -v                 VirusTotal Lookup.
-  -n                 NeutrinoAPI Lookup.
+  -a, --all          Perform All Lookups.
+  -d, --dns          DNS Lookup.
+  -v, --virustotal   VirusTotal Lookup.
+  -n, --neutrino     NeutrinoAPI Lookup.
 ```
 
 # Install:
+First, make sure your configuration file is correct for your computer/installation.
+Next, install the python requirements:
 
 ```
 $ pip install -r requirements.txt
@@ -37,6 +40,10 @@ $ pip install -r requirements.txt
 # Resources:
 
    - The GeoIP2 Python library - https://github.com/maxmind/GeoIP2-python
+   - Foundation of DNS lookups inspired by http://www.iodigitalsec.com/performing-dns-queries-python/
+
+# License
+This application is covered by the Creative Commons BY-SA license.
 
 ```
 This product includes GeoLite2 data created by MaxMind, available from
