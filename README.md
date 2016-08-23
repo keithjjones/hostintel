@@ -4,7 +4,7 @@ This tool is used to collect various intelligence sources for hosts.
 Hosts are identified by FQDN host name, Domain, or IP address.
 
 ```
-$python hostintel.py -h
+$ python hostintel.py -h
 usage: hostintel.py [-h] [-a] [-d] [-v] [-n] ConfigurationFile InputFile
 
 Look up host intelligence information. Outputs CSV to STDOUT.
