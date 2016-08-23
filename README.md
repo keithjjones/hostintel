@@ -24,15 +24,15 @@ optional arguments:
 # Install:
 
 ```
-$pip install -r requirements.txt
+$ pip install -r requirements.txt
 ```
 
 # Intelligence Sources:
 
-  - DNS
-  - VirusTotal (Private API key required)
-  - NeutrinoAPI (API key required)
   - GeoLite2 (No network I/O required)
+  - DNS (Network I/O required)
+  - VirusTotal (Private API key and network I/O required)
+  - NeutrinoAPI (API key and network I/O required)
 
 # Resources:
 
