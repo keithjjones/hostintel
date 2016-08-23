@@ -133,7 +133,7 @@ for host in hosts:
         geolat = geodata.location.latitude
         geolong = geodata.location.longitude
     except:
-        geodata = geocountry = geopostal = geocity = geosubdivision = geolat = geolong = ''
+        pass
 
     if args.dns:
         if IsIPv4(host):
