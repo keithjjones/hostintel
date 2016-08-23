@@ -1,7 +1,7 @@
 # hostintel
 
 This tool is used to collect various intelligence sources for hosts.
-Hosts are identified by FQDN host name, domain, or IP address.
+Hosts are identified by FQDN host name, Domain, or IP address.
 
 ```
 $ python hostintel.py -h
