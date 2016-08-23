@@ -124,6 +124,9 @@ for host in hosts:
     geolat = geolong = ''
     
     # Pull the GeoIP2 information...
+    if IsIPv4(host):
+        ipv4=host
+        
     try:
         geodata = geo.city(host)
         geocountry = geodata.country.name
@@ -135,7 +138,8 @@ for host in hosts:
     except:
         pass
 
-    if args.dns:
+    # Pull the DNS information...
+    if args.dns or args.all:
         if IsIPv4(host):
             ipv4 = host
             fqdn = '; '.join(map(str,DNSLookupHost(host)))
