@@ -1,6 +1,9 @@
 # Emacs Temp Files
 *~
 
+# Local Directory
+local/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
