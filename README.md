@@ -2,6 +2,10 @@
 
 This tool is used to collect various intelligence sources for hosts.
 Hosts are identified by FQDN host name, Domain, or IP address.
+The output is in CSV format and sent to STDOUT
+so the data can be saved or piped into another program.
+Since the output is in CSV format, spreadsheets such as Excel or database systems will
+easily be able to import the data.
 
 ```
 $ python hostintel.py -h
