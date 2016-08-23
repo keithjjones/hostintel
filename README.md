@@ -24,6 +24,7 @@ optional arguments:
 
 # Install:
 First, make sure your configuration file is correct for your computer/installation.
+Add your API keys as appropriate.
 Next, install the python requirements:
 
 ```
@@ -34,7 +35,7 @@ $ pip install -r requirements.txt
 
   - GeoLite2 (No network I/O required)
   - DNS (Network I/O required)
-  - VirusTotal (Private API key and network I/O required)
+  - VirusTotal (Private API key and network I/O required, throttled when appropriate)
   - NeutrinoAPI (API key and network I/O required)
 
 # Resources:
