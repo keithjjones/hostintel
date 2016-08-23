@@ -19,6 +19,12 @@ optional arguments:
   -n          NeutrinoAPI Lookup.
 ```
 
+# Install:
+
+```
+$pip install -r requirements.txt
+```
+
 ## Intelligence Sources:
 
    - VirusTotal (Private API key required)
