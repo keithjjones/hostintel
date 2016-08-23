@@ -1,0 +1,2 @@
+geoip2==2.4.0
+dnspython==1.14.0
