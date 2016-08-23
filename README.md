@@ -25,13 +25,13 @@ optional arguments:
 $pip install -r requirements.txt
 ```
 
-## Intelligence Sources:
+# Intelligence Sources:
 
    - VirusTotal (Private API key required)
    - NeutrinoAPI (API key required)
    - GeoLite2 (No network I/O required)
 
-## Resources:
+# Resources:
 
    - The GeoIP2 Python library - https://github.com/maxmind/GeoIP2-python
 
