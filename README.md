@@ -23,6 +23,7 @@ optional arguments:
   -a, --all          Perform All Lookups.
   -d, --dns          DNS Lookup.
   -v, --virustotal   VirusTotal Lookup.
+  -p, --passivetotal PassiveTotal Lookup.
   -n, --neutrino     NeutrinoAPI Lookup.
 ```
 
