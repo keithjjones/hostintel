@@ -118,7 +118,7 @@ except:
 output = csv.writer(sys.stdout)
 
 # Print the header to STDOUT
-output.writerow(['Input Host','IPv4','FQDN','Country','Postal','City','State','Lat','Long','VirusTotal Detected URLs','VirusTotal Detected Communicating Samples','VirusTotal Detected Downloaded Samples']);
+output.writerow(['Input Host','IPv4','FQDN','Country','Postal','City','State','Lat','Long','VirusTotal Detected URLs','VirusTotal Detected Communicating Samples','VirusTotal Detected Downloaded Samples','VirusTotal URL']);
 
 # Iterate through all of the input hosts
 for host in hosts:
@@ -129,7 +129,8 @@ for host in hosts:
     geolat = geolong = \
     vtdetectedurls = \
     vtdetectedcommunicatingsamples = \
-    vtdetecteddownloadedsamples = ''
+    vtdetecteddownloadedsamples = \
+    vturl = ''
     
     # Pull the GeoIP2 information...
     if IsIPv4(host):
@@ -161,37 +162,49 @@ for host in hosts:
         vt = VirusTotalPublicApi(vtapi)
         if IsIPv4(host):
             vtresponse = vt.get_ip_report(host)
-            while vtresponse["response_code"] != 200:
+            while vtresponse["response_code"] != 200 and vtresponse["response_code"] != 403:
                 time.sleep(60)  # Sleep for the API throttling
                 vtresponse = vt.get_ip_report(host)
-            if vtresponse["results"].has_key("detected_urls"):
+            if not vtresponse.has_key("results"):
+                vtdetectedurls = "INVALID API KEY"            
+            elif vtresponse["results"].has_key("detected_urls"):
                 vtdetectedurls = str(len(vtresponse["results"]["detected_urls"]))
             else:
                 vtdetectedurls = str(0)
-            if vtresponse["results"].has_key("detected_communicating_samples"):
+            if not vtresponse.has_key("results"):
+                vtdetectedcommunicatingsamples = "INVALID API KEY"
+            elif vtresponse["results"].has_key("detected_communicating_samples"):
                 vtdetectedcommunicatingsamples = str(len(vtresponse["results"]["detected_communicating_samples"]))
             else:
                 vtdetectedcommunicatingsamples = str(0)
+            vturl = "https://www.virustotal.com/en/ip-address/{}/information/".format(host)
         else:
             vtresponse = vt.get_domain_report(host)
-            while vtresponse["response_code"] != 200:
+            while vtresponse["response_code"] != 200 and vtresponse["response_code"] != 403:
                 time.sleep(60)  # Sleep for the API throttling
                 vtresponse = vt.get_domain_report(host)
-            if vtresponse["results"].has_key("detected_urls"):
+            if not vtresponse.has_key("results"):
+                vtdetectedurls = "INVALID API KEY"
+            elif vtresponse["results"].has_key("detected_urls"):
                 vtdetectedurls = str(len(vtresponse["results"]["detected_urls"]))
             else:
                 vtdetectedurls = str(0)
-            if vtresponse["results"].has_key("detected_communicating_samples"):
+            if not vtresponse.has_key("results"):
+                vtdetectedcommunicatingsamples = "INVALID API KEY"
+            elif vtresponse["results"].has_key("detected_communicating_samples"):
                 vtdetectedcommunicatingsamples = str(len(vtresponse["results"]["detected_communicating_samples"]))
             else:
                 vtdetectedcommunicatingsamples = str(0)
-            if vtresponse["results"].has_key("detected_downloaded_samples"):
+            if not vtresponse.has_key("results"):
+                vtdetecteddownloadedsamples = "INVALID API KEY"
+            elif vtresponse["results"].has_key("detected_downloaded_samples"):
                 vtdetecteddownloadedsamples = str(len(vtresponse["results"]["detected_downloaded_samples"]))
             else:
                 vtdetecteddownloadedsamples = str(0)
+            vturl = "https://www.virustotal.com/en/domain/{}/information/".format(host)
                 
     # Print the output line
-    output.writerow([host,ipv4,fqdn,geocountry,geopostal,geocity,geosubdivision,geolat,geolong,vtdetectedurls,vtdetectedcommunicatingsamples,vtdetecteddownloadedsamples])
+    output.writerow([host,ipv4,fqdn,geocountry,geopostal,geocity,geosubdivision,geolat,geolong,vtdetectedurls,vtdetectedcommunicatingsamples,vtdetecteddownloadedsamples,vturl])
 
 # Close the GEOIP2 database
 geo.close()
