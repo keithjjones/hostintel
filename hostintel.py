@@ -6,12 +6,14 @@
 
 # Local network functions
 import libs.network
+# Local GeoIP functions
+import libs.geoip
+# Local DNS functions
+import libs.dnsinfo
 # Required for complex command line argument parsing.
 import argparse
 # Required for configuration files
 import ConfigParser
-# Required for GeoIP2 lookups
-import geoip2.database
 # Required for CSV
 import csv
 # Required for STDOUT
@@ -32,7 +34,7 @@ import time
 
 # Setup command line argument parsing.
 parser = argparse.ArgumentParser(
-    description='Look up host intelligence information. Outputs CSV to STDOUT.')
+    description='Modular application to look up host intelligence information. Outputs CSV to STDOUT.')
 parser.add_argument('ConfigurationFile', help='Configuration file')
 parser.add_argument('InputFile',
                     help='Input file, one host per line (IP, domain, or FQDN host name)')
@@ -55,11 +57,20 @@ args = parser.parse_args()
 ConfigFile = ConfigParser.ConfigParser()
 ConfigFile.read(args.ConfigurationFile)
 
+# Setup the headers list
+Headers = []
+
+# Setup the data list
+Data = []
+
 # Pull GeoIP2 City Database Path
-try:
-    geoip2citydb = ConfigFile.get('GeoIP2','City_Path')
+geoip2citydb = ConfigFile.get('GeoIP2','City_Path')
+
+# Setup GeoIP object
+try:    
+    GeoIP = libs.geoip.GeoIP(geoip2citydb)
 except:
-    print "ERROR:  GeoIP2 City Database Config File Error!"
+    print("ERROR:  Cannot open GeoIP Database!")
     exit(1)
     
 # Open file and read into list named hosts
@@ -67,118 +78,95 @@ try:
     with open(args.InputFile) as infile:
         hosts = infile.read().splitlines()
 except:
-    print "ERROR: Cannot open InputFile!"
-    exit(1)
-    
-# Open the GEOIP2 database
-try:
-    geo = geoip2.database.Reader(geoip2citydb)
-except:
-    print geoip2citydb
-    print "ERROR: Cannot open GEOIP2 City Database!"
+    print("ERROR: Cannot open InputFile!")
     exit(1)
     
 # Setup CSV to STDOUT
 output = csv.writer(sys.stdout)
 
-# Print the header to STDOUT
-output.writerow(['Input Host','IPv4','FQDN','Country','Postal','City','State','Lat','Long','VirusTotal Detected URLs','VirusTotal Detected Communicating Samples','VirusTotal Detected Downloaded Samples','VirusTotal URL']);
+# Add standard header info
+Headers.append('Input Host')
 
 # Iterate through all of the input hosts
 for host in hosts:
-    # Clear variables
-    ipv4 = fqdn = \
-    geodata = geocountry = \
-    geopostal = geocity = geosubdivision = \
-    geolat = geolong = \
-    vtdetectedurls = \
-    vtdetectedcommunicatingsamples = \
-    vtdetecteddownloadedsamples = \
-    vturl = ''
+    # Clear the row
+    row = []
     
-    # Pull the GeoIP2 information...
-    if libs.network.IsIPv4(host):
-        ipv4=host
-    else:
-        fqdn = host
-        
-    try:
-        geodata = geo.city(host)
-        geocountry = geodata.country.name
-        geopostal = geodata.postal.code
-        geocity = geodata.city.name
-        geosubdivision = geodata.subdivisions.most_specific.name
-        geolat = geodata.location.latitude
-        geolong = geodata.location.longitude
-    except:
-        pass
+    # Add the host to the output
+    row.append(host)
 
-    # Pull the DNS information...
+    # Lookup DNS
     if args.dns or args.all:
-        if libs.network.IsIPv4(host):
-            fqdn = '; '.join(map(str,libs.network.DNSLookupHost(host)))
-        else:
-            ipv4 = '; '.join(map(str,libs.network.DNSLookupHost(host)))
-
-    # Pull the VirusTotal information
-    if args.virustotal or args.all:
-        vtapi = ConfigFile.get('VirusTotal','PublicAPI')
-        vt = VirusTotalPublicApi(vtapi)
-        if libs.network.IsIPv4(host):
-            vtresponse = vt.get_ip_report(host)
-            while vtresponse["response_code"] != 200 and vtresponse["response_code"] != 403:
-                time.sleep(60)  # Sleep for the API throttling
-                vtresponse = vt.get_ip_report(host)
-            if not vtresponse.has_key("results"):
-                vtdetectedurls = "INVALID API KEY"            
-            elif vtresponse["results"].has_key("detected_urls"):
-                vtdetectedurls = str(len(vtresponse["results"]["detected_urls"]))
-            else:
-                vtdetectedurls = str(0)
-            if not vtresponse.has_key("results"):
-                vtdetectedcommunicatingsamples = "INVALID API KEY"
-            elif vtresponse["results"].has_key("detected_communicating_samples"):
-                vtdetectedcommunicatingsamples = str(len(vtresponse["results"]["detected_communicating_samples"]))
-            else:
-                vtdetectedcommunicatingsamples = str(0)
-            vturl = "https://www.virustotal.com/en/ip-address/{}/information/".format(host)
-        else:
-            vtresponse = vt.get_domain_report(host)
-            while vtresponse["response_code"] != 200 and vtresponse["response_code"] != 403:
-                time.sleep(60)  # Sleep for the API throttling
-                vtresponse = vt.get_domain_report(host)
-            if not vtresponse.has_key("results"):
-                vtdetectedurls = "INVALID API KEY"
-            elif vtresponse["results"].has_key("detected_urls"):
-                vtdetectedurls = str(len(vtresponse["results"]["detected_urls"]))
-            else:
-                vtdetectedurls = str(0)
-            if not vtresponse.has_key("results"):
-                vtdetectedcommunicatingsamples = "INVALID API KEY"
-            elif vtresponse["results"].has_key("detected_communicating_samples"):
-                vtdetectedcommunicatingsamples = str(len(vtresponse["results"]["detected_communicating_samples"]))
-            else:
-                vtdetectedcommunicatingsamples = str(0)
-            if not vtresponse.has_key("results"):
-                vtdetecteddownloadedsamples = "INVALID API KEY"
-            elif vtresponse["results"].has_key("detected_downloaded_samples"):
-                vtdetecteddownloadedsamples = str(len(vtresponse["results"]["detected_downloaded_samples"]))
-            else:
-                vtdetecteddownloadedsamples = str(0)
-            vturl = "https://www.virustotal.com/en/domain/{}/information/".format(host)
-
-    if args.passivetotal or args.all:
-        ptuser = ConfigFile.get('PassiveTotal','Username')
-        ptapi = ConfigFile.get('PassiveTotal','PublicAPI')
-        print ptuser
-        print ptapi
+        DNSInfo = libs.dnsinfo.DNSInfo()
+        DNSInfo.add_headers(Headers)
+        DNSInfo.add_row(host,row)
     
-            
-    # Print the output line
-    output.writerow([host,ipv4,fqdn,geocountry,geopostal,geocity,geosubdivision,geolat,geolong,vtdetectedurls,vtdetectedcommunicatingsamples,vtdetecteddownloadedsamples,vturl])
+    # Lookup GeoIP
+    GeoIP.add_headers(Headers)
+    GeoIP.add_row(host,row)
+        
+    # Add the row to the output data set
+    Data.append(row)
 
-# Close the GEOIP2 database
-geo.close()
+#     # Pull the VirusTotal information
+#     if args.virustotal or args.all:
+#         vtapi = ConfigFile.get('VirusTotal','PublicAPI')
+#         vt = VirusTotalPublicApi(vtapi)
+#         if libs.network.IsIPv4(host):
+#             vtresponse = vt.get_ip_report(host)
+#             while vtresponse["response_code"] != 200 and vtresponse["response_code"] != 403:
+#                 time.sleep(60)  # Sleep for the API throttling
+#                 vtresponse = vt.get_ip_report(host)
+#             if not vtresponse.has_key("results"):
+#                 vtdetectedurls = "INVALID API KEY"            
+#             elif vtresponse["results"].has_key("detected_urls"):
+#                 vtdetectedurls = str(len(vtresponse["results"]["detected_urls"]))
+#             else:
+#                 vtdetectedurls = str(0)
+#             if not vtresponse.has_key("results"):
+#                 vtdetectedcommunicatingsamples = "INVALID API KEY"
+#             elif vtresponse["results"].has_key("detected_communicating_samples"):
+#                 vtdetectedcommunicatingsamples = str(len(vtresponse["results"]["detected_communicating_samples"]))
+#             else:
+#                 vtdetectedcommunicatingsamples = str(0)
+#             vturl = "https://www.virustotal.com/en/ip-address/{}/information/".format(host)
+#         else:
+#             vtresponse = vt.get_domain_report(host)
+#             while vtresponse["response_code"] != 200 and vtresponse["response_code"] != 403:
+#                 time.sleep(60)  # Sleep for the API throttling
+#                 vtresponse = vt.get_domain_report(host)
+#             if not vtresponse.has_key("results"):
+#                 vtdetectedurls = "INVALID API KEY"
+#             elif vtresponse["results"].has_key("detected_urls"):
+#                 vtdetectedurls = str(len(vtresponse["results"]["detected_urls"]))
+#             else:
+#                 vtdetectedurls = str(0)
+#             if not vtresponse.has_key("results"):
+#                 vtdetectedcommunicatingsamples = "INVALID API KEY"
+#             elif vtresponse["results"].has_key("detected_communicating_samples"):
+#                 vtdetectedcommunicatingsamples = str(len(vtresponse["results"]["detected_communicating_samples"]))
+#             else:
+#                 vtdetectedcommunicatingsamples = str(0)
+#             if not vtresponse.has_key("results"):
+#                 vtdetecteddownloadedsamples = "INVALID API KEY"
+#             elif vtresponse["results"].has_key("detected_downloaded_samples"):
+#                 vtdetecteddownloadedsamples = str(len(vtresponse["results"]["detected_downloaded_samples"]))
+#             else:
+#                 vtdetecteddownloadedsamples = str(0)
+#             vturl = "https://www.virustotal.com/en/domain/{}/information/".format(host)
+
+#     if args.passivetotal or args.all:
+#         ptuser = ConfigFile.get('PassiveTotal','Username')
+#         ptapi = ConfigFile.get('PassiveTotal','PublicAPI')
+#         print ptuser
+#         print ptapi
+    
+# Write the header
+output.writerow(Headers)
+
+# Write each row
+for row in Data:
+    output.writerow(row)
 
 # Exit without error
 exit(0)
