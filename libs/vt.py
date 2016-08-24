@@ -35,13 +35,15 @@ class VT(object):
         inputheaders.append('VirusTotal Detected URLs')
         inputheaders.append('VirusTotal Detected Communicating Samples')
         inputheaders.append('VirusTotal Detected Downloaded Samples')
+        inputheaders.append('VirusTotal Link')
 
     """
     Adds the pulled data to the input row.
     """
     def add_row(self,host,inputrow):
 
-        vtdetectedurls = vtdetectedcommunicatingsamples = vtdetecteddownloadedsamples = ''
+        vtdetectedurls = vtdetectedcommunicatingsamples = \
+            vtdetecteddownloadedsamples = vturl = ''
         
         if libs.network.IsIPv4(host):
             vtresponse = self.vt.get_ip_report(host)
@@ -89,3 +91,4 @@ class VT(object):
         inputrow.append(vtdetectedurls)
         inputrow.append(vtdetectedcommunicatingsamples)
         inputrow.append(vtdetecteddownloadedsamples)
+        inputrow.append(vturl)
