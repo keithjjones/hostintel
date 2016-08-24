@@ -45,6 +45,7 @@ $ pip install -r requirements.txt
   - GeoLite2 (No network I/O required)
     - http://www.maxmind.com
   - DNS (Network I/O required)
+    - https://github.com/rthalley/dnspython
   - VirusTotal (Private API key and network I/O required, throttled when appropriate)
     - http://www.virustotal.com
   - Shodan (API key and network I/O required) (WORK IN PROGRESS)
@@ -59,6 +60,7 @@ $ pip install -r requirements.txt
 # Resources:
 
    - The GeoIP2 Python library - https://github.com/maxmind/GeoIP2-python
+   - The Python DNS library - https://github.com/rthalley/dnspython
    - Foundation of DNS lookups inspired by http://www.iodigitalsec.com/performing-dns-queries-python/
    - The VirusTotal Python library - https://github.com/blacktop/virustotal-api
    - The Shodan Python library - http://shodan.readthedocs.io/en/latest/ and https://github.com/achillean/shodan-python
