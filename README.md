@@ -1,6 +1,8 @@
 # hostintel
 
 This tool is used to collect various intelligence sources for hosts.
+Hostintel is written in a module fashion so new intelligence sources can be
+easily added.
 Hosts are identified by FQDN host name, Domain, or IP address.
 This tool only supports IPv4 at the moment.
 The output is in CSV format and sent to STDOUT
@@ -14,6 +16,25 @@ usage: hostintel.py [-h] [-a] [-d] [-v] [-p] [-s] [-t] [-n]
                     ConfigurationFile InputFile
 
 Look up host intelligence information. Outputs CSV to STDOUT.
+
+positional arguments:
+  ConfigurationFile   Configuration file
+  InputFile           Input file, one host per line (IP, domain, or FQDN host
+                      name)
+
+optional arguments:
+  -h, --help          show this help message and exit
+  -a, --all           Perform All Lookups.
+  -d, --dns           DNS Lookup.
+  -v, --virustotal    VirusTotal Lookup.
+  -p, --passivetotal  PassiveTotal Lookup. (WORK IN PROGRESS)
+  -s, --shodan        Shodan Lookup. (WORK IN PROGRESS)
+  -t, --threatgroup   ThreatGroup Lookup. (WORK IN PROGRESS)
+  -n, --neutrino      NeutrinoAPI Lookup. (WORK IN PROGRESS)usage: hostintel.py [-h] [-a] [-d] [-v] [-p] [-s] [-t] [-n]
+                    ConfigurationFile InputFile
+
+Modular application to look up host intelligence information. Outputs CSV to
+STDOUT.
 
 positional arguments:
   ConfigurationFile   Configuration file
