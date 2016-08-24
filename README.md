@@ -2,6 +2,7 @@
 
 This tool is used to collect various intelligence sources for hosts.
 Hosts are identified by FQDN host name, Domain, or IP address.
+This tool only supports IPv4 at the moment.
 The output is in CSV format and sent to STDOUT
 so the data can be saved or piped into another program.
 Since the output is in CSV format, spreadsheets such as Excel or database systems will
