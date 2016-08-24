@@ -88,6 +88,9 @@ output = csv.writer(sys.stdout)
 # Add standard header info
 Headers.append('Input Host')
 
+# Print Header Flag
+PrintHeaders = True
+
 # Iterate through all of the input hosts
 for host in hosts:
     # Clear the row
@@ -99,27 +102,31 @@ for host in hosts:
     # Lookup DNS
     if args.dns or args.all:
         DNSInfo = libs.dnsinfo.DNSInfo()
-        DNSInfo.add_headers(Headers)
+        if PrintHeaders:
+            DNSInfo.add_headers(Headers)
         DNSInfo.add_row(host,row)
     
     # Lookup GeoIP
-    GeoIP.add_headers(Headers)
+    if PrintHeaders:
+        GeoIP.add_headers(Headers)
     GeoIP.add_row(host,row)
 
     # Lookup VirusTotal
     if args.virustotal or args.all:
         VT = libs.vt.VT(vtpublicapi)
-        VT.add_headers(Headers)
+        if PrintHeaders:
+            VT.add_headers(Headers)
         VT.add_row(host,row)
-        
-    # Add the row to the output data set
-    Data.append(row)
 
 #     if args.passivetotal or args.all:
 #         ptuser = ConfigFile.get('PassiveTotal','Username')
 #         ptapi = ConfigFile.get('PassiveTotal','PublicAPI')
 #         print ptuser
 #         print ptapi
+        
+    # Add the row to the output data set
+    Data.append(row)
+    PrintHeaders = False
     
 # Write the header
 output.writerow(Headers)
