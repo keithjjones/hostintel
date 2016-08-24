@@ -10,27 +10,30 @@ easily be able to import the data.
 
 ```
 $ python hostintel.py -h
-usage: hostintel.py [-h] [-a] [-d] [-v] [-n] ConfigurationFile InputFile
+usage: hostintel.py [-h] [-a] [-d] [-v] [-p] [-s] [-t] [-n]
+                    ConfigurationFile InputFile
 
 Look up host intelligence information. Outputs CSV to STDOUT.
 
 positional arguments:
-  ConfigurationFile  Configuration file
-  InputFile          Input file, one host per line (IP, domain, or FQDN host
-                     name)
+  ConfigurationFile   Configuration file
+  InputFile           Input file, one host per line (IP, domain, or FQDN host
+                      name)
 
 optional arguments:
-  -h, --help         show this help message and exit
-  -a, --all          Perform All Lookups.
-  -d, --dns          DNS Lookup.
-  -v, --virustotal   VirusTotal Lookup.
-  -p, --passivetotal PassiveTotal Lookup.
-  -n, --neutrino     NeutrinoAPI Lookup.
+  -h, --help          show this help message and exit
+  -a, --all           Perform All Lookups.
+  -d, --dns           DNS Lookup.
+  -v, --virustotal    VirusTotal Lookup.
+  -p, --passivetotal  PassiveTotal Lookup. (WORK IN PROGRESS)
+  -s, --shodan        Shodan Lookup. (WORK IN PROGRESS)
+  -t, --threatgroup   ThreatGroup Lookup. (WORK IN PROGRESS)
+  -n, --neutrino      NeutrinoAPI Lookup. (WORK IN PROGRESS)
 ```
 
 # Install:
 First, make sure your configuration file is correct for your computer/installation.
-Add your API keys as appropriate.
+Add your API keys and usernames as appropriate in the configuration file.
 Next, install the python requirements:
 
 ```
@@ -40,9 +43,16 @@ $ pip install -r requirements.txt
 # Intelligence Sources:
 
   - GeoLite2 (No network I/O required)
+    - http://www.maxmind.co
   - DNS (Network I/O required)
   - VirusTotal (Private API key and network I/O required, throttled when appropriate)
-  - NeutrinoAPI (API key and network I/O required)
+    - http://www.virustotal.com
+  - Shodan (API key and network I/O required) (WORK IN PROGRESS)
+    - http://www.shodan.io
+  - PassiveTotal (API key, username, and network I/O required) (WORK IN PROGRESS)
+    - http://www.passivetotal.com
+  - NeutrinoAPI (API key and network I/O required) (WORK IN PROGRESS)
+    - http://www.neutrinoapi.com
 
 # Resources:
 
