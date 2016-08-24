@@ -4,6 +4,8 @@
 # INCLUDES
 #
 
+# Local network functions
+import libs.network
 # Required for complex command line argument parsing.
 import argparse
 # Required for configuration files
@@ -14,10 +16,6 @@ import geoip2.database
 import csv
 # Required for STDOUT
 import sys
-# Required for DNS lookups
-import dns.resolver
-# Required for regular expressions
-import re
 # Required for VirusTotal API
 from virus_total_apis import PublicApi as VirusTotalPublicApi
 # Required for sleep function
@@ -26,43 +24,6 @@ import time
 #
 # FUNCTIONS
 #
-
-# Function to determine if host is an IPv4 address
-def IsIPv4(host):
-    if re.match('[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}',host):
-        return True
-    else:
-        return False
-
-# Function to determine if host is a domain (only one period in host)
-def IsDomain(host):
-    if re.match('[^\.]*\.[^\.]*',host):
-        return True
-    else:
-        return False
-
-# Function to determine if host is a FQDN host name
-def IsFQDN(host):
-    if IsIPv4(host) or IsDomain(host):
-        return False
-    else:
-        return True
-
-# Function to create reverse lookup address, inspired by:
-# http://www.iodigitalsec.com/performing-dns-queries-python/
-def ReverseAddress(IP):
-    RevIP = '.'.join(reversed(IP.split('.'))) + '.in-addr.arpa'
-    return RevIP
-
-# Function to DNS lookup host
-def DNSLookupHost(host):
-    try:
-        if IsIPv4(host):
-            return dns.resolver.query(ReverseAddress(host),'PTR')
-        else:
-            return dns.resolver.query(host,'A')
-    except:
-        return []
     
 
 #
@@ -136,7 +97,7 @@ for host in hosts:
     vturl = ''
     
     # Pull the GeoIP2 information...
-    if IsIPv4(host):
+    if libs.network.IsIPv4(host):
         ipv4=host
     else:
         fqdn = host
@@ -154,16 +115,16 @@ for host in hosts:
 
     # Pull the DNS information...
     if args.dns or args.all:
-        if IsIPv4(host):
-            fqdn = '; '.join(map(str,DNSLookupHost(host)))
+        if libs.network.IsIPv4(host):
+            fqdn = '; '.join(map(str,libs.network.DNSLookupHost(host)))
         else:
-            ipv4 = '; '.join(map(str,DNSLookupHost(host)))
+            ipv4 = '; '.join(map(str,libs.network.DNSLookupHost(host)))
 
     # Pull the VirusTotal information
     if args.virustotal or args.all:
         vtapi = ConfigFile.get('VirusTotal','PublicAPI')
         vt = VirusTotalPublicApi(vtapi)
-        if IsIPv4(host):
+        if libs.network.IsIPv4(host):
             vtresponse = vt.get_ip_report(host)
             while vtresponse["response_code"] != 200 and vtresponse["response_code"] != 403:
                 time.sleep(60)  # Sleep for the API throttling
