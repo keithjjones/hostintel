@@ -19,7 +19,7 @@ The first function will add the headers associated with the particular module
 to the list of overall headers output by hostintel given by "inputheaders".
 The second function will
 perform the lookup and add the data to the row "inputrow".  "inputrow" is then
-output by the main script in CSV format.
+output by the main script in CSV format. See the existing modules for examples.
 
 After adding your module, you can add the functionality to the overall "hostintel.py"
 script with the appropriate logic for your intelligence resource.
