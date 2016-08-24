@@ -43,6 +43,12 @@ Next, install the python requirements:
 ```
 $ pip install -r requirements.txt
 ```
+# Running:
+
+```
+$ python hostintel.py myconfigfile.conf myhosts.txt -a > myoutput.csv
+```
+You should be able to import myoutput.csv into any database or spreadsheet program.
 
 # Intelligence Sources:
 
