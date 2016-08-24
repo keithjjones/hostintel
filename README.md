@@ -43,7 +43,7 @@ $ pip install -r requirements.txt
 # Intelligence Sources:
 
   - GeoLite2 (No network I/O required)
-    - http://www.maxmind.co
+    - http://www.maxmind.com
   - DNS (Network I/O required)
   - VirusTotal (Private API key and network I/O required, throttled when appropriate)
     - http://www.virustotal.com
@@ -51,6 +51,8 @@ $ pip install -r requirements.txt
     - http://www.shodan.io
   - PassiveTotal (API key, username, and network I/O required) (WORK IN PROGRESS)
     - http://www.passivetotal.com
+  - ThreatCrowd (Network I/O required) (WORK IN PROGRESS)
+    - http://www.threatcrowd.org
   - NeutrinoAPI (API key and network I/O required) (WORK IN PROGRESS)
     - http://www.neutrinoapi.com
 
@@ -58,6 +60,10 @@ $ pip install -r requirements.txt
 
    - The GeoIP2 Python library - https://github.com/maxmind/GeoIP2-python
    - Foundation of DNS lookups inspired by http://www.iodigitalsec.com/performing-dns-queries-python/
+   - The VirusTotal Python library - https://github.com/blacktop/virustotal-api
+   - The Shodan Python library - http://shodan.readthedocs.io/en/latest/ and https://github.com/achillean/shodan-python
+   - The PassiveTotal Python library - https://passivetotal.readthedocs.io/en/latest/ and https://github.com/passivetotal/python_api
+   - The ThreatCrowd Python library - https://github.com/threatcrowd/ApiV2 and https://github.com/jheise/threatcrowd_api
 
 # License
 This application is covered by the Creative Commons BY-SA license.
