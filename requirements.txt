@@ -1,3 +1,4 @@
+censys==0.0.5
 geoip2==2.4.0
 passivetotal==1.0.30
 shodan==1.5.5
