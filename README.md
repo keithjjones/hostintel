@@ -30,7 +30,7 @@ optional arguments:
   -d, --dns           DNS Lookup.
   -v, --virustotal    VirusTotal Lookup.
   -p, --passivetotal  PassiveTotal Lookup.
-  -s, --shodan        Shodan Lookup. (WORK IN PROGRESS)
+  -s, --shodan        Shodan Lookup.
   -c, --censys        Censys Lookup. (WORK IN PROGRESS)
   -t, --threatcrowd   ThreatCrowd Lookup. (WORK IN PROGRESS)
   -n, --neutrino      NeutrinoAPI Lookup. (WORK IN PROGRESS)
@@ -52,6 +52,8 @@ $ python hostintel.py myconfigfile.conf myhosts.txt -a > myoutput.csv
 You should be able to import myoutput.csv into any database or spreadsheet program.
 
 # Intelligence Sources:
+
+You can get API keys at the sites below for your configuration file.
 
   - GeoLite2 (No network I/O required)
     - http://www.maxmind.com

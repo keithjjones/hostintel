@@ -42,7 +42,7 @@ parser.add_argument('-a','--all', action='store_true', help='Perform All Lookups
 parser.add_argument('-d','--dns',  action='store_true', help='DNS Lookup.')
 parser.add_argument('-v','--virustotal', action='store_true', help='VirusTotal Lookup.')
 parser.add_argument('-p','--passivetotal', action='store_true', help='PassiveTotal Lookup.')
-parser.add_argument('-s','--shodan', action='store_true', help='Shodan Lookup. (WORK IN PROGRESS)')
+parser.add_argument('-s','--shodan', action='store_true', help='Shodan Lookup.')
 parser.add_argument('-c','--censys', action='store_true', help='Censys Lookup. (WORK IN PROGRESS)')
 parser.add_argument('-t','--threatcrowd', action='store_true', help='ThreatCrowd Lookup. (WORK IN PROGRESS)')
 parser.add_argument('-n','--neutrino', action='store_true', help='NeutrinoAPI Lookup. (WORK IN PROGRESS)')
