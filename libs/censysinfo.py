@@ -45,6 +45,8 @@ class Censys(object):
         inputheaders.append('Censys IPv4 ASN ASN')
         inputheaders.append('Censys IPv4 ASN Name')
         inputheaders.append('Censys IPv4 Protocols')
+        inputheaders.append('Censys Matching Endpoints')
+        inputheaders.append('Censys URL')
 
     """
     Adds the pulled data to the input row.
@@ -55,7 +57,12 @@ class Censys(object):
                 censysipv4data = self.censysipv4.view(host)
             except censys.base.CensysNotFoundException as e:
                 censysipv4data = {}
+            censysurl = 'https://censys.io/ipv4/{}'.format(host)
+            censysipv4query = {}
         else:
+            # May be able to add a IPv4 query for this case?
+            censysipv4query = self.censysipv4.search(host)
+            censysurl = 'https://censys.io/ipv4?q={}'.format(host)
             censysipv4data = {}
 
         censysipv4tags = '; '.join(censysipv4data.get('tags',''))
@@ -110,3 +117,10 @@ class Censys(object):
         inputrow.append(censysipv4asasn)
         inputrow.append(censysipv4asname)
         inputrow.append(censysipv4protocols)
+
+        censysmatchingaddresses = []
+        for result in censysipv4query:
+            censysmatchingaddresses.append(result['ip'])
+            
+        inputrow.append(str(len(censysmatchingaddresses)))
+        inputrow.append(censysurl)
