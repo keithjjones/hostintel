@@ -50,13 +50,17 @@ class Shodan(object):
         if libs.network.IsIPv4(host):
             try:
                 shodandata = self.shodan.host(host)
-            except:
+                shodanurl = "https://www.shodan.io/host/{}".format(host)
+            except shodan.exception.APIError as e:
                 shodandata = {}
+                shodanurl = '{}'.format(e.value)
         else:
             try:
                 shodandata = self.shodan.search(host)
-            except:
+                shodanurl = "https://www.shodan.io/search?query={}".format(host)
+            except shodan.exception.APIError as e:
                 shodandata = {}
+                shodanurl = '{}'.format(e.value)
 
         shodancity = shodandata.get('city','')
         shodanregion = shodandata.get('region_code','')
@@ -75,6 +79,7 @@ class Shodan(object):
         shodancountryname = shodandata.get('country_name','')
         shodanasn = shodandata.get('asn','')
         shodanports = '; '.join(map(str,shodandata.get('ports','')))
+        shodantotalhits = str(shodandata.get('total',''))
 
         inputrow.append(shodanorg)
         inputrow.append(shodanisp)
@@ -93,3 +98,5 @@ class Shodan(object):
         inputrow.append(shodanlastupdate)
         inputrow.append(shodanlatitude)
         inputrow.append(shodanlongitude)
+        inputrow.append(shodantotalhits)
+        inputrow.append(shodanurl)
