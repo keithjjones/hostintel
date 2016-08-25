@@ -29,6 +29,8 @@ import libs.pt
 import libs.shodaninfo
 # Local Censys functions
 import libs.censysinfo
+# Local ThreatCrowd functions
+import libs.threatcrowdinfo
 
 #
 # COMMAND LINE ARGS
@@ -46,8 +48,9 @@ parser.add_argument('-v','--virustotal', action='store_true', help='VirusTotal L
 parser.add_argument('-p','--passivetotal', action='store_true', help='PassiveTotal Lookup.')
 parser.add_argument('-s','--shodan', action='store_true', help='Shodan Lookup.')
 parser.add_argument('-c','--censys', action='store_true', help='Censys Lookup.')
-parser.add_argument('-t','--threatcrowd', action='store_true', help='ThreatCrowd Lookup. (WORK IN PROGRESS)')
-parser.add_argument('-n','--neutrino', action='store_true', help='NeutrinoAPI Lookup. (WORK IN PROGRESS)')
+parser.add_argument('-t','--threatcrowd', action='store_true', help='ThreatCrowd Lookup.')
+# Maybe at a later time this can be added...
+#parser.add_argument('-n','--neutrino', action='store_true', help='NeutrinoAPI Lookup. (WORK IN PROGRESS)')
 
 #
 # MAIN PROGRAM
@@ -160,6 +163,13 @@ for host in hosts:
         if PrintHeaders:
             Censys.add_headers(Headers)
         Censys.add_row(host,row)
+
+    # Lookup ThreatCrowd
+    if args.threatcrowd or args.all:
+        ThreatCrowd = libs.threatcrowdinfo.ThreatCrowd()
+        if PrintHeaders:
+            ThreatCrowd.add_headers(Headers)
+        ThreatCrowd.add_row(host,row)
 
     # MODULES:  Add additional intelligence source modules here
         

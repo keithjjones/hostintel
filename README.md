@@ -33,7 +33,6 @@ optional arguments:
   -s, --shodan        Shodan Lookup.
   -c, --censys        Censys Lookup.
   -t, --threatcrowd   ThreatCrowd Lookup.
-  -n, --neutrino      NeutrinoAPI Lookup. (WORK IN PROGRESS)
 ```
 
 # Install:
@@ -80,8 +79,6 @@ You can get API keys at the sites below for your configuration file.
     - http://www.censys.io
   - ThreatCrowd (Network I/O required)
     - http://www.threatcrowd.org
-  - NeutrinoAPI (API key and network I/O required) (WORK IN PROGRESS)
-    - http://www.neutrinoapi.com
 
 # Resources:
 
