@@ -44,6 +44,7 @@ class PT(object):
         inputheaders.append('PassiveTotal Enrichment Dynamic DNS')
         inputheaders.append('PassiveTotal Enrichment Sub Domains')
         inputheaders.append('PassiveTotal Enrichment Top Level Domain')
+        inputheaders.append('PassiveTotal Malware Samples')
 
     """
     Adds the pulled data to the input row.
@@ -186,3 +187,14 @@ class PT(object):
         inputrow.append(enrichmentdynamicdns)
         inputrow.append(enrichmentsubdomains)
         inputrow.append(enrichmenttld)
+
+        malwaredata = self.ptenrichment.get_malware(query=host)
+        malwaresamples = []
+
+        for malware in malwaredata['results']:
+            malwaresamples.append("Sample: {} / Source: {} / SourceURL: {} / Collection Date:{}".format(malware['sample'],malware['source'],malware['sourceUrl'],malware['collectionDate']))
+
+        malwarestring = '\n'.join(malwaresamples)
+
+        inputrow.append(malwarestring)
+
