@@ -1,4 +1,5 @@
 geoip2==2.4.0
 passivetotal==1.0.30
+shodan==1.5.5
 virustotal_api==1.1.2
 dnspython==1.14.0
