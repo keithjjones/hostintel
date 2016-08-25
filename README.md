@@ -12,7 +12,7 @@ easily be able to import the data.
 
 ```
 $ python hostintel.py -h
-usage: hostintel.py [-h] [-a] [-d] [-v] [-p] [-s] [-t] [-n]
+usage: hostintel.py [-h] [-a] [-d] [-v] [-p] [-s] [-c] [-t] [-n]
                     ConfigurationFile InputFile
 
 Modular application to look up host intelligence information. Outputs CSV to
@@ -29,8 +29,9 @@ optional arguments:
   -a, --all           Perform All Lookups.
   -d, --dns           DNS Lookup.
   -v, --virustotal    VirusTotal Lookup.
-  -p, --passivetotal  PassiveTotal Lookup. (WORK IN PROGRESS)
+  -p, --passivetotal  PassiveTotal Lookup.
   -s, --shodan        Shodan Lookup. (WORK IN PROGRESS)
+  -c, --censys        Censys Lookup. (WORK IN PROGRESS)
   -t, --threatgroup   ThreatGroup Lookup. (WORK IN PROGRESS)
   -n, --neutrino      NeutrinoAPI Lookup. (WORK IN PROGRESS)
 ```
@@ -58,10 +59,12 @@ You should be able to import myoutput.csv into any database or spreadsheet progr
     - https://github.com/rthalley/dnspython
   - VirusTotal (Private API key and network I/O required, throttled when appropriate)
     - http://www.virustotal.com
+  - PassiveTotal (API key, username, and network I/O required)
+    - http://www.passivetotal.com
   - Shodan (API key and network I/O required) (WORK IN PROGRESS)
     - http://www.shodan.io
-  - PassiveTotal (API key, username, and network I/O required) (WORK IN PROGRESS)
-    - http://www.passivetotal.com
+  - Censys (API key, username, and network I/O required) (WORK IN PROGRESS)
+    - http://www.censys.io
   - ThreatCrowd (Network I/O required) (WORK IN PROGRESS)
     - http://www.threatcrowd.org
   - NeutrinoAPI (API key and network I/O required) (WORK IN PROGRESS)
@@ -71,9 +74,10 @@ You should be able to import myoutput.csv into any database or spreadsheet progr
 
    - The GeoIP2 Python library - https://github.com/maxmind/GeoIP2-python
    - The Python DNS library - https://github.com/rthalley/dnspython
-   - Foundation of DNS lookups inspired by http://www.iodigitalsec.com/performing-dns-queries-python/
+     - Foundation of DNS lookups inspired by http://www.iodigitalsec.com/performing-dns-queries-python/
    - The VirusTotal Python library - https://github.com/blacktop/virustotal-api
    - The Shodan Python library - http://shodan.readthedocs.io/en/latest/ and https://github.com/achillean/shodan-python
+   - The Censys Python library - https://github.com/censys/censys-python and https://www.censys.io/api
    - The PassiveTotal Python library - https://passivetotal.readthedocs.io/en/latest/ and https://github.com/passivetotal/python_api
    - The ThreatCrowd Python library - https://github.com/threatcrowd/ApiV2 and https://github.com/jheise/threatcrowd_api
 
