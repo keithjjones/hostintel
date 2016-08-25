@@ -32,7 +32,7 @@ optional arguments:
   -p, --passivetotal  PassiveTotal Lookup.
   -s, --shodan        Shodan Lookup. (WORK IN PROGRESS)
   -c, --censys        Censys Lookup. (WORK IN PROGRESS)
-  -t, --threatgroup   ThreatGroup Lookup. (WORK IN PROGRESS)
+  -t, --threatcrowd   ThreatCrowd Lookup. (WORK IN PROGRESS)
   -n, --neutrino      NeutrinoAPI Lookup. (WORK IN PROGRESS)
 ```
 
