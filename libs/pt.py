@@ -56,7 +56,7 @@ class PT(object):
     Adds the pulled data to the input row.
     """    
     def add_row(self,host,inputrow):
-
+        
         # Whois data
         
         whoisdata = self.ptwhois.get_whois_details(query=host)
@@ -202,31 +202,21 @@ class PT(object):
         # Malware data
         
         malwaredata = self.ptenrichment.get_malware(query=host)
-        malwaresamples = []
 
-        # This is too much info, perhaps make this better in the future
-        # for malware in malwaredata['results']:
-        #     #malwaresamples.append("Sample: {} / Source: {} / SourceURL: {} / Collection Date:{}".format(malware['sample'],malware['source'],malware['sourceUrl'],malware['collectionDate']))
-        #     malwaresamples.append("{}".format(malware['source']))
-
-        # malwarestring = '\n'.join(malwaresamples)
-
-        malwarestring = len(malwaredata['results'])
+        if malwaredata.has_key('results'):
+            malwarestring = len(malwaredata['results'])
+        else:
+            malwarestring = 'INVALID CREDENTIALS'
 
         inputrow.append(malwarestring)
 
         # OSInt data
         
         osintdata = self.ptenrichment.get_osint(query=host)
-        osintsamples = []
 
-        # This is too much info, perhaps make this better in the future
-        # for osint in osintdata['results']:
-        #     #osintsamples.append("Source: {} / Source URL: {} / Indicators: {} / Tags: {}".format(osint['source'],osint['sourceUrl'],' - '.join(osint['inReport']),';'.join(osint['tags'])))
-        #     osintsamples.append("{}".format(osint['sourceUrl']))
-
-        # osintstring = '\n'.join(osintsamples)
-
-        osintstring = len(osintdata['results'])
+        if osintdata.has_key('results'):
+            osintstring = len(osintdata['results'])
+        else:
+            osintstring = 'INVALID CREDENTIALS'
 
         inputrow.append(osintstring)
