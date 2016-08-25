@@ -32,7 +32,7 @@ optional arguments:
   -p, --passivetotal  PassiveTotal Lookup.
   -s, --shodan        Shodan Lookup.
   -c, --censys        Censys Lookup.
-  -t, --threatcrowd   ThreatCrowd Lookup. (WORK IN PROGRESS)
+  -t, --threatcrowd   ThreatCrowd Lookup.
   -n, --neutrino      NeutrinoAPI Lookup. (WORK IN PROGRESS)
 ```
 
@@ -52,7 +52,7 @@ $ python hostintel.py myconfigfile.conf myhosts.txt -a > myoutput.csv
 You should be able to import myoutput.csv into any database or spreadsheet program.
 
 **Note that depending on your network, your API key limits, and the data you are searching for,
-this script can run for a very long time!  Use each module sparingly!**
+this script can run for a very long time!  Use each module sparingly!  In return for the long wait, you save yourself from having to pull this data manually.**
 
 # Intelligence Sources:
 
@@ -70,7 +70,7 @@ You can get API keys at the sites below for your configuration file.
     - http://www.shodan.io
   - Censys (API key, username, and network I/O required)
     - http://www.censys.io
-  - ThreatCrowd (Network I/O required) (WORK IN PROGRESS)
+  - ThreatCrowd (Network I/O required)
     - http://www.threatcrowd.org
   - NeutrinoAPI (API key and network I/O required) (WORK IN PROGRESS)
     - http://www.neutrinoapi.com
