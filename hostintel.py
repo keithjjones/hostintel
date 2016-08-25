@@ -42,7 +42,7 @@ parser.add_argument('-v','--virustotal', action='store_true', help='VirusTotal L
 parser.add_argument('-p','--passivetotal', action='store_true', help='PassiveTotal Lookup.')
 parser.add_argument('-s','--shodan', action='store_true', help='Shodan Lookup. (WORK IN PROGRESS)')
 parser.add_argument('-c','--censys', action='store_true', help='Censys Lookup. (WORK IN PROGRESS)')
-parser.add_argument('-t','--threatgroup', action='store_true', help='ThreatGroup Lookup. (WORK IN PROGRESS)')
+parser.add_argument('-t','--threatcrowd', action='store_true', help='ThreatCrowd Lookup. (WORK IN PROGRESS)')
 parser.add_argument('-n','--neutrino', action='store_true', help='NeutrinoAPI Lookup. (WORK IN PROGRESS)')
 
 #
