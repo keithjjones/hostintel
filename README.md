@@ -44,6 +44,14 @@ Next, install the python requirements:
 ```
 $ pip install -r requirements.txt
 ```
+
+There have been some problems with the stock version of Python on Mac OSX.  You may have to
+install the security portion of the requests library with the following command:
+
+```
+$ pip install requests[security]
+```
+
 # Running:
 
 ```
