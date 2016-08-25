@@ -21,5 +21,7 @@ The second function will
 perform the lookup and add the data to the row "inputrow".  "inputrow" is then
 output by the main script in CSV format. See the existing modules for examples.
 
+An example skeleton module has been added to the "libs" directory for you.
+
 After adding your module, you can add the functionality to the overall "hostintel.py"
 script with the appropriate logic for your intelligence resource.
