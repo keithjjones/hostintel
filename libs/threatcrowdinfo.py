@@ -26,9 +26,9 @@ class ThreatCrowd(object):
         inputheaders.append('ThreatCrowd URL')
         inputheaders.append('ThreatCrowd Votes')
         inputheaders.append('ThreatCrowd References')
-        inputheaders.append('ThreatCrowd Hashes')
-        inputheaders.append('ThreatCrowd Resolutions')
-        inputheaders.append('ThreatCrowd Subdomains')
+        inputheaders.append('ThreatCrowd Number of Hashes')
+        inputheaders.append('ThreatCrowd Number of Resolutions')
+        inputheaders.append('ThreatCrowd Number of Subdomains')
         inputheaders.append('ThreatCrowd Emails')
 
     """
@@ -42,7 +42,7 @@ class ThreatCrowd(object):
         else:
             tcdata = threatcrowd.domain_report(host)
         
-        tcurl = tcdata.get('permalink','')
+        tcurl = tcdata.get('permalink','https://www.threatcrowd.org/ip.php?ip={}'.format(host))
         
         tcresolutions = tcdata.get('resolutions',[])
         tcresolutionslist = []
@@ -51,15 +51,15 @@ class ThreatCrowd(object):
                 tcresolutionslist.append(resolution.get('domain',''))
             elif resolution.has_key('ip_address'):
                 tcresolutionslist.append(resolution.get('ip_address',''))
-        tcresolutionsout = '\n'.join(tcresolutionslist)
+        tcresolutionsout = len(tcresolutionslist)
 
         tcvotes = tcdata.get('votes','')
 
         tcreferences = '\n'.join(tcdata.get('references',[]))
 
-        tchashes = '\n'.join(tcdata.get('hashes',[]))
+        tchashes = len(tcdata.get('hashes',[]))
 
-        tcsubdomains = '\n'.join(tcdata.get('subdomains',[]))
+        tcsubdomains = len(tcdata.get('subdomains',[]))
 
         tcemails = '\n'.join(tcdata.get('emails',[]))
         
