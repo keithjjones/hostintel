@@ -31,7 +31,7 @@ optional arguments:
   -v, --virustotal    VirusTotal Lookup.
   -p, --passivetotal  PassiveTotal Lookup.
   -s, --shodan        Shodan Lookup.
-  -c, --censys        Censys Lookup. (WORK IN PROGRESS)
+  -c, --censys        Censys Lookup.
   -t, --threatcrowd   ThreatCrowd Lookup. (WORK IN PROGRESS)
   -n, --neutrino      NeutrinoAPI Lookup. (WORK IN PROGRESS)
 ```
