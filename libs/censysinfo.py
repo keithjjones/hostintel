@@ -58,9 +58,7 @@ class Censys(object):
             except censys.base.CensysNotFoundException as e:
                 censysipv4data = {}
             censysurl = 'https://censys.io/ipv4/{}'.format(host)
-            censysipv4query = {}
         else:
-            # May be able to add a IPv4 query for this case?
             censysipv4query = self.censysipv4.search(host)
             censysurl = 'https://censys.io/ipv4?q={}'.format(host)
             censysipv4data = {}
@@ -118,9 +116,21 @@ class Censys(object):
         inputrow.append(censysipv4asname)
         inputrow.append(censysipv4protocols)
 
-        censysmatchingaddresses = []
-        for result in censysipv4query:
-            censysmatchingaddresses.append(result['ip'])
+        # Too slow
+        #censysmatchingaddresses = []
+        #for result in censysipv4query:
+        #    censysmatchingaddresses.append(result['ip'])   
+        #inputrow.append(str(len(censysmatchingaddresses)))
+
+        try:
+            censysipv4query
+            try:
+                censysipv4query.next()
+                inputrow.append(str(True))
+            except:
+                inputrow.append(str(False))            
+        except:
+            inputrow.append('')
             
-        inputrow.append(str(len(censysmatchingaddresses)))
+        
         inputrow.append(censysurl)
