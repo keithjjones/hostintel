@@ -204,10 +204,14 @@ class PT(object):
         malwaredata = self.ptenrichment.get_malware(query=host)
         malwaresamples = []
 
-        for malware in malwaredata['results']:
-            malwaresamples.append("Sample: {} / Source: {} / SourceURL: {} / Collection Date:{}".format(malware['sample'],malware['source'],malware['sourceUrl'],malware['collectionDate']))
+        # This is too much info, perhaps make this better in the future
+        # for malware in malwaredata['results']:
+        #     #malwaresamples.append("Sample: {} / Source: {} / SourceURL: {} / Collection Date:{}".format(malware['sample'],malware['source'],malware['sourceUrl'],malware['collectionDate']))
+        #     malwaresamples.append("{}".format(malware['source']))
 
-        malwarestring = '\n'.join(malwaresamples)
+        # malwarestring = '\n'.join(malwaresamples)
+
+        malwarestring = len(malwaredata['results'])
 
         inputrow.append(malwarestring)
 
@@ -216,9 +220,13 @@ class PT(object):
         osintdata = self.ptenrichment.get_osint(query=host)
         osintsamples = []
 
-        for osint in osintdata['results']:
-            osintsamples.append("Source: {} / Source URL: {} / Indicators: {} / Tags: {}".format(osint['source'],osint['sourceUrl'],' - '.join(osint['inReport']),';'.join(osint['tags'])))
+        # This is too much info, perhaps make this better in the future
+        # for osint in osintdata['results']:
+        #     #osintsamples.append("Source: {} / Source URL: {} / Indicators: {} / Tags: {}".format(osint['source'],osint['sourceUrl'],' - '.join(osint['inReport']),';'.join(osint['tags'])))
+        #     osintsamples.append("{}".format(osint['sourceUrl']))
 
-        osintstring = '\n'.join(osintsamples)
+        # osintstring = '\n'.join(osintsamples)
+
+        osintstring = len(osintdata['results'])
 
         inputrow.append(osintstring)
