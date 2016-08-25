@@ -27,6 +27,8 @@ import libs.vt
 import libs.pt
 # Local Shodan functions
 import libs.shodaninfo
+# Local Censys functions
+import libs.censysinfo
 
 #
 # COMMAND LINE ARGS
@@ -85,7 +87,11 @@ ptpublicapi = ConfigFile.get('PassiveTotal','PublicAPI')
 
 # Pull the Shodan config
 shodanpublicapi = ConfigFile.get('Shodan','PublicAPI')
-    
+
+# Pull the Censys config
+censyssecret = ConfigFile.get('Censys','Secret')
+censyspublicapi = ConfigFile.get('Censys','PublicAPI')
+
 # Open file and read into list named hosts
 try:
     with open(args.InputFile) as infile:
@@ -143,6 +149,17 @@ for host in hosts:
         if PrintHeaders:
             Shodan.add_headers(Headers)
         Shodan.add_row(host,row)
+
+    # Lookup Censys
+    if args.censys or args.all:
+        try:
+            Censys = libs.censysinfo.Censys(censyspublicapi,censyssecret)
+        except:
+            print("ERROR:  Censys API Key or Secret not valid!")
+            exit(1)
+        if PrintHeaders:
+            Censys.add_headers(Headers)
+        Censys.add_row(host,row)
 
     # MODULES:  Add additional intelligence source modules here
         
