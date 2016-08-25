@@ -65,7 +65,7 @@ You can get API keys at the sites below for your configuration file.
     - http://www.passivetotal.com
   - Shodan (API key and network I/O required)
     - http://www.shodan.io
-  - Censys (API key, username, and network I/O required) (WORK IN PROGRESS)
+  - Censys (API key, username, and network I/O required)
     - http://www.censys.io
   - ThreatCrowd (Network I/O required) (WORK IN PROGRESS)
     - http://www.threatcrowd.org
