@@ -114,6 +114,9 @@ PrintHeaders = True
 
 # Iterate through all of the input hosts
 for host in hosts:
+    # Output status
+    sys.stderr.write('*** Processing {} ***\n'.format(host))
+    
     # Clear the row
     row = []
     
@@ -180,6 +183,7 @@ for host in hosts:
     PrintHeaders = False
     
 # Write the header
+sys.stderr.write('*** Writing Output ***\n')
 output.writerow(Headers)
 
 # Write each row
