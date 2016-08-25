@@ -6,12 +6,6 @@
 
 # Local network functions
 import libs.network
-# Local GeoIP functions
-import libs.geoip
-# Local DNS functions
-import libs.dnsinfo
-# Local VirusTotal functions
-import libs.vt
 # Required for complex command line argument parsing.
 import argparse
 # Required for configuration files
@@ -21,10 +15,16 @@ import csv
 # Required for STDOUT
 import sys
 
-#
-# FUNCTIONS
-#
-    
+# MODULES:  Add additional intelligence source modules here
+
+# Local GeoIP functions
+import libs.geoip
+# Local DNS functions
+import libs.dnsinfo
+# Local VirusTotal functions
+import libs.vt
+# Local PassiveTotal functions
+import libs.pt
 
 #
 # COMMAND LINE ARGS
@@ -61,6 +61,8 @@ Headers = []
 # Setup the data list
 Data = []
 
+# MODULES:  Setup additional intelligence source modules here
+
 # Pull GeoIP2 City Database Path
 geoip2citydb = ConfigFile.get('GeoIP2','City_Path')
 
@@ -73,6 +75,10 @@ except:
 
 # Pull the VirusTotal config
 vtpublicapi = ConfigFile.get('VirusTotal','PublicAPI')
+
+# Pull the PassiveTotal config
+ptusername = ConfigFile.get('PassiveTotal','Username')
+ptpublicapi = ConfigFile.get('PassiveTotal','PublicAPI')
     
 # Open file and read into list named hosts
 try:
@@ -118,11 +124,14 @@ for host in hosts:
             VT.add_headers(Headers)
         VT.add_row(host,row)
 
-#     if args.passivetotal or args.all:
-#         ptuser = ConfigFile.get('PassiveTotal','Username')
-#         ptapi = ConfigFile.get('PassiveTotal','PublicAPI')
-#         print ptuser
-#         print ptapi
+    # Lookup PassiveTotal
+    if args.passivetotal or args.all:
+        PT = libs.pt.PT(ptusername,ptpublicapi)
+        if PrintHeaders:
+            PT.add_headers(Headers)
+        PT.add_row(host,row)
+
+    # MODULES:  Add additional intelligence source modules here
         
     # Add the row to the output data set
     Data.append(row)
