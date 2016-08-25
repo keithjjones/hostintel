@@ -51,6 +51,9 @@ $ python hostintel.py myconfigfile.conf myhosts.txt -a > myoutput.csv
 ```
 You should be able to import myoutput.csv into any database or spreadsheet program.
 
+**Note that depending on your network, your API key limits, and the data you are searching for,
+this script can run for a very long time!  Use each module sparingly!**
+
 # Intelligence Sources:
 
 You can get API keys at the sites below for your configuration file.
