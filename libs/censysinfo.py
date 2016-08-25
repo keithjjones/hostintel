@@ -12,7 +12,7 @@ import libs.network
 
 class Censys(object):
     """
-    Class to hold Skeleton items.
+    Class to hold Censys items.
     """
     def __init__(self,PublicAPI,Secret):
         self.PublicAPI = PublicAPI
