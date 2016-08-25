@@ -25,6 +25,8 @@ import libs.dnsinfo
 import libs.vt
 # Local PassiveTotal functions
 import libs.pt
+# Local Shodan functions
+import libs.shodaninfo
 
 #
 # COMMAND LINE ARGS
@@ -80,6 +82,9 @@ vtpublicapi = ConfigFile.get('VirusTotal','PublicAPI')
 # Pull the PassiveTotal config
 ptusername = ConfigFile.get('PassiveTotal','Username')
 ptpublicapi = ConfigFile.get('PassiveTotal','PublicAPI')
+
+# Pull the Shodan config
+shodanpublicapi = ConfigFile.get('Shodan','PublicAPI')
     
 # Open file and read into list named hosts
 try:
@@ -131,6 +136,13 @@ for host in hosts:
         if PrintHeaders:
             PT.add_headers(Headers)
         PT.add_row(host,row)
+
+    # Lookup Shodan
+    if args.shodan or args.all:
+        Shodan = libs.shodaninfo.Shodan(shodanpublicapi)
+        if PrintHeaders:
+            Shodan.add_headers(Headers)
+        Shodan.add_row(host,row)
 
     # MODULES:  Add additional intelligence source modules here
         
