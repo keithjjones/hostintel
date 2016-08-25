@@ -1,4 +1,8 @@
 #
+# NOTE:  There are many more items this API will provide, these are the most useful
+#
+
+#
 # INCLUDES
 #
 import passivetotal.libs.whois
@@ -45,11 +49,16 @@ class PT(object):
         inputheaders.append('PassiveTotal Enrichment Sub Domains')
         inputheaders.append('PassiveTotal Enrichment Top Level Domain')
         inputheaders.append('PassiveTotal Malware Samples')
+        inputheaders.append('PassiveTotal OSInt Samples')
+        
 
     """
     Adds the pulled data to the input row.
     """    
     def add_row(self,host,inputrow):
+
+        # Whois data
+        
         whoisdata = self.ptwhois.get_whois_details(query=host)
         
         if whoisdata.has_key('contactEmail'):
@@ -106,7 +115,9 @@ class PT(object):
         inputrow.append(whoisregistrantname)
         inputrow.append(whoisregistrantcountry)
         inputrow.append(whoisregistrar)
-            
+
+        # Enrichment data
+        
         enrichmentdata = self.ptenrichment.get_enrichment(query=host)
 
         if enrichmentdata.has_key('network'):
@@ -188,6 +199,8 @@ class PT(object):
         inputrow.append(enrichmentsubdomains)
         inputrow.append(enrichmenttld)
 
+        # Malware data
+        
         malwaredata = self.ptenrichment.get_malware(query=host)
         malwaresamples = []
 
@@ -198,3 +211,14 @@ class PT(object):
 
         inputrow.append(malwarestring)
 
+        # OSInt data
+        
+        osintdata = self.ptenrichment.get_osint(query=host)
+        osintsamples = []
+
+        for osint in osintdata['results']:
+            osintsamples.append("Source: {} / Source URL: {} / Indicators: {} / Tags: {}".format(osint['source'],osint['sourceUrl'],' - '.join(osint['inReport']),';'.join(osint['tags'])))
+
+        osintstring = '\n'.join(osintsamples)
+
+        inputrow.append(osintstring)
