@@ -148,6 +148,8 @@ for host in hosts:
         
     # Add the row to the output data set
     Data.append(row)
+
+    # This turns off headers for remaining rows
     PrintHeaders = False
     
 # Write the header
