@@ -63,7 +63,7 @@ You can get API keys at the sites below for your configuration file.
     - http://www.virustotal.com
   - PassiveTotal (API key, username, and network I/O required)
     - http://www.passivetotal.com
-  - Shodan (API key and network I/O required) (WORK IN PROGRESS)
+  - Shodan (API key and network I/O required)
     - http://www.shodan.io
   - Censys (API key, username, and network I/O required) (WORK IN PROGRESS)
     - http://www.censys.io
