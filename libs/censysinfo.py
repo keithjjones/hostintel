@@ -1,6 +1,8 @@
 #
 # INCLUDES
 #
+import sys
+
 import censys.ipv4
 
 # Local network functions
@@ -17,7 +19,18 @@ class Censys(object):
     def __init__(self,PublicAPI,Secret):
         self.PublicAPI = PublicAPI
         self.Secret = Secret
-        self.censysipv4 = censys.ipv4.CensysIPv4(PublicAPI,Secret)
+        self.NeedConnection = True
+
+        while self.NeedConnection:            
+            try:
+                self.censysipv4 = censys.ipv4.CensysIPv4(PublicAPI,Secret)
+            except censys.base.CensysRateLimitExceededException:
+                self.NeedConnection = True
+            except:
+                    sys.stderr.write('ERROR: Censys API Credential Issue!\n')
+                    exit(1)
+            self.NeedConnection = False
+            
     
     """
     Adds appropriate headers to input list.

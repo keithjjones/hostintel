@@ -162,11 +162,7 @@ for host in hosts:
 
     # Lookup Censys
     if args.censys or args.all:
-        try:
-            Censys = libs.censysinfo.Censys(censyspublicapi,censyssecret)
-        except:
-            sys.stderr.write("ERROR:  Censys API Key or Secret not valid!\n")
-            exit(1)
+        Censys = libs.censysinfo.Censys(censyspublicapi,censyssecret)
         if PrintHeaders:
             Censys.add_headers(Headers)
         Censys.add_row(host,row)
