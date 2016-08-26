@@ -26,6 +26,7 @@ class Censys(object):
                 self.censysipv4 = censys.ipv4.CensysIPv4(PublicAPI,Secret)
             except censys.base.CensysRateLimitExceededException:
                 self.NeedConnection = True
+                sys.sleep(60)
             except:
                     sys.stderr.write('ERROR: Censys API Credential Issue!\n')
                     raise
