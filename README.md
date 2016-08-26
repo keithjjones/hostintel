@@ -51,6 +51,9 @@ install the security portion of the requests library with the following command:
 $ pip install requests[security]
 ```
 
+Lastly, I am a fan of virtualenv for Python.  To make a customized local installation of
+Python to run this tool, I recommend you read:  http://docs.python-guide.org/en/latest/dev/virtualenvs/
+
 # Running:
 
 ```
