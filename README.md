@@ -85,7 +85,7 @@ $ python hostintel.py local/config.conf sampledata/smalllist.txt -a > sampledata
 
 ### Larger Hosts List
 ```
- python hostintel.py local/config.conf sampledata/largerlist.txt -a > sampledata/largerlist.csv
+$ python hostintel.py local/config.conf sampledata/largerlist.txt -a > sampledata/largerlist.csv
 *** Processing 114.34.84.13 ***
 *** Processing 116.102.34.212 ***
 *** Processing 118.75.180.168 ***
