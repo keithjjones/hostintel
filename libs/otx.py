@@ -62,7 +62,7 @@ class OTX(object):
                 otxurl = 'https://otx.alienvault.com/indicator/ip/{}'.format(host)
             except OTXv2.InvalidAPIKey:
                 sys.stderr.write("ERROR:  OTX API key or not valid!\n")
-                exit(1)
+                raise
             except OTXv2.BadRequest:
                 otxgendata = {}
                 otxrepdata = {}
@@ -76,7 +76,7 @@ class OTX(object):
                 otxurl = 'https://otx.alienvault.com/indicator/domain/{}'.format(host)
             except OTXv2.InvalidAPIKey:
                 sys.stderr.write("ERROR:  OTX API key or not valid!\n")
-                exit(1)                
+                raise
             except OTXv2.BadRequest:
                 otxgendata = {}
                 otxrepdata = {}
@@ -90,7 +90,7 @@ class OTX(object):
                 otxurl = 'https://otx.alienvault.com/indicator/hostname/{}'.format(host)
             except OTXv2.InvalidAPIKey:
                 sys.stderr.write("ERROR:  OTX API key or not valid!\n")
-                exit(1)
+                raise
             except OTXv2.BadRequest:
                 otxgendata = {}
                 otxrepdata = {}

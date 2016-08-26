@@ -28,7 +28,7 @@ class Censys(object):
                 self.NeedConnection = True
             except:
                     sys.stderr.write('ERROR: Censys API Credential Issue!\n')
-                    exit(1)
+                    raise
             self.NeedConnection = False
             
     
