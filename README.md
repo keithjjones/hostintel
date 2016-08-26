@@ -1,7 +1,7 @@
 # hostintel
 
 This tool is used to collect various intelligence sources for hosts.
-Hostintel is written in a module fashion so new intelligence sources can be
+Hostintel is written in a modular fashion so new intelligence sources can be
 easily added.
 Hosts are identified by FQDN host name, Domain, or IP address.
 This tool only supports IPv4 at the moment.
