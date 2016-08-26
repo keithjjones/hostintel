@@ -8,9 +8,6 @@
 # Local Directory
 local/
 
-# Don't save data files
-*.csv
-
 # Don't save VIM files
 *.swp
 
