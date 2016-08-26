@@ -41,6 +41,8 @@ class Shodan(object):
         inputheaders.append('Shodan Last Update')
         inputheaders.append('Shodan Latitude')
         inputheaders.append('Shodan Longitude')
+        inputheaders.append('Shodan Total Hits')
+        inputheaders.append('Shodan URL')
 
     """
     Adds the pulled data to the input row.
