@@ -79,7 +79,7 @@ geoip2citydb = ConfigFile.get('GeoIP2','City_Path')
 try:    
     GeoIP = libs.geoip.GeoIP(geoip2citydb)
 except:
-    print("ERROR:  Cannot open GeoIP Database!")
+    sys.stderr.write("ERROR:  Cannot open GeoIP Database!\n")
     exit(1)
 
 # Pull the VirusTotal config
@@ -104,7 +104,7 @@ try:
     with open(args.InputFile) as infile:
         hosts = infile.read().splitlines()
 except:
-    print("ERROR: Cannot open InputFile!")
+    sys.stderr.write("ERROR:  Cannot open InputFile!\n")
     exit(1)
     
 # Setup CSV to STDOUT
@@ -165,7 +165,7 @@ for host in hosts:
         try:
             Censys = libs.censysinfo.Censys(censyspublicapi,censyssecret)
         except:
-            print("ERROR:  Censys API Key or Secret not valid!")
+            sys.stderr.write("ERROR:  Censys API Key or Secret not valid!\n")
             exit(1)
         if PrintHeaders:
             Censys.add_headers(Headers)
