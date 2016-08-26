@@ -116,79 +116,91 @@ Headers.append('Input Host')
 # Print Header Flag
 PrintHeaders = True
 
+# Abort Flag
+Aborted = False
+
 # Iterate through all of the input hosts
 for host in hosts:
-    # Output status
-    sys.stderr.write('*** Processing {} ***\n'.format(host))
-    
-    # Clear the row
-    row = []
-    
-    # Add the host to the output
-    row.append(host)
+    try:
+        # Output status
+        sys.stderr.write('*** Processing {} ***\n'.format(host))
 
-    # Lookup DNS
-    if args.dns or args.all:
-        DNSInfo = libs.dnsinfo.DNSInfo()
+        # Clear the row
+        row = []
+
+        # Add the host to the output
+        row.append(host)
+
+        # Lookup DNS
+        if args.dns or args.all:
+            DNSInfo = libs.dnsinfo.DNSInfo()
+            if PrintHeaders:
+                DNSInfo.add_headers(Headers)
+            DNSInfo.add_row(host,row)
+
+        # Lookup GeoIP
         if PrintHeaders:
-            DNSInfo.add_headers(Headers)
-        DNSInfo.add_row(host,row)
-    
-    # Lookup GeoIP
-    if PrintHeaders:
-        GeoIP.add_headers(Headers)
-    GeoIP.add_row(host,row)
+            GeoIP.add_headers(Headers)
+        GeoIP.add_row(host,row)
 
-    # Lookup VirusTotal
-    if args.virustotal or args.all:
-        VT = libs.vt.VT(vtpublicapi)
-        if PrintHeaders:
-            VT.add_headers(Headers)
-        VT.add_row(host,row)
+        # Lookup VirusTotal
+        if args.virustotal or args.all:
+            VT = libs.vt.VT(vtpublicapi)
+            if PrintHeaders:
+                VT.add_headers(Headers)
+            VT.add_row(host,row)
 
-    # Lookup PassiveTotal
-    if args.passivetotal or args.all:
-        PT = libs.pt.PT(ptusername,ptpublicapi)
-        if PrintHeaders:
-            PT.add_headers(Headers)
-        PT.add_row(host,row)
+        # Lookup PassiveTotal
+        if args.passivetotal or args.all:
+            PT = libs.pt.PT(ptusername,ptpublicapi)
+            if PrintHeaders:
+                PT.add_headers(Headers)
+            PT.add_row(host,row)
 
-    # Lookup Shodan
-    if args.shodan or args.all:
-        Shodan = libs.shodaninfo.Shodan(shodanpublicapi)
-        if PrintHeaders:
-            Shodan.add_headers(Headers)
-        Shodan.add_row(host,row)
+        # Lookup Shodan
+        if args.shodan or args.all:
+            Shodan = libs.shodaninfo.Shodan(shodanpublicapi)
+            if PrintHeaders:
+                Shodan.add_headers(Headers)
+            Shodan.add_row(host,row)
 
-    # Lookup Censys
-    if args.censys or args.all:
-        Censys = libs.censysinfo.Censys(censyspublicapi,censyssecret)
-        if PrintHeaders:
-            Censys.add_headers(Headers)
-        Censys.add_row(host,row)
+        # Lookup Censys
+        if args.censys or args.all:
+            Censys = libs.censysinfo.Censys(censyspublicapi,censyssecret)
+            if PrintHeaders:
+                Censys.add_headers(Headers)
+            Censys.add_row(host,row)
 
-    # Lookup ThreatCrowd
-    if args.threatcrowd or args.all:
-        ThreatCrowd = libs.threatcrowdinfo.ThreatCrowd()
-        if PrintHeaders:
-            ThreatCrowd.add_headers(Headers)
-        ThreatCrowd.add_row(host,row)
+        # Lookup ThreatCrowd
+        if args.threatcrowd or args.all:
+            ThreatCrowd = libs.threatcrowdinfo.ThreatCrowd()
+            if PrintHeaders:
+                ThreatCrowd.add_headers(Headers)
+            ThreatCrowd.add_row(host,row)
 
-    # Lookup OTX
-    if args.otx or args.all:
-        OTX = libs.otx.OTX(otxpublicapi)
-        if PrintHeaders:
-            OTX.add_headers(Headers)
-        OTX.add_row(host,row)
+        # Lookup OTX
+        if args.otx or args.all:
+            OTX = libs.otx.OTX(otxpublicapi)
+            if PrintHeaders:
+                OTX.add_headers(Headers)
+            OTX.add_row(host,row)
 
-    # MODULES:  Add additional intelligence source modules here
+        # MODULES:  Add additional intelligence source modules here
+
+        # Add the row to the output data set
+        Data.append(row)
+
+        # This turns off headers for remaining rows
+        PrintHeaders = False
+    except:
+        # There was an error, save data...
+        sys.stderr.write('ERROR:  An Exception was raised!  Saving data but the last line may be corrupt...\n')
+        output.writerow(Headers)
+        for row in Data:
+            output.writerow(row)
+        sys.stderr.write('ERROR:  Raising original Exception for dubugging...\n')
+        raise
         
-    # Add the row to the output data set
-    Data.append(row)
-
-    # This turns off headers for remaining rows
-    PrintHeaders = False
-    
 # Write the header
 sys.stderr.write('*** Writing Output ***\n')
 output.writerow(Headers)
