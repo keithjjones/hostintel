@@ -12,7 +12,7 @@ easily be able to import the data.
 
 ```
 $ python hostintel.py -h
-usage: hostintel.py [-h] [-a] [-d] [-v] [-p] [-s] [-c] [-t] [-n]
+usage: hostintel.py [-h] [-a] [-d] [-v] [-p] [-s] [-c] [-t] [-o]
                     ConfigurationFile InputFile
 
 Modular application to look up host intelligence information. Outputs CSV to
@@ -33,12 +33,13 @@ optional arguments:
   -s, --shodan        Shodan Lookup.
   -c, --censys        Censys Lookup.
   -t, --threatcrowd   ThreatCrowd Lookup.
+  -o, --otx           OTX by AlienVault Lookup.
 ```
 
 # Install:
 First, make sure your configuration file is correct for your computer/installation.
 Add your API keys and usernames as appropriate in the configuration file.
-Next, install the python requirements:
+Next, install the python requirements (run this each time you git pull this repository too):
 
 ```
 $ pip install -r requirements.txt
@@ -127,6 +128,8 @@ You can get API keys at the sites below for your configuration file.
     - http://www.censys.io
   - ThreatCrowd (Network I/O required, throttled when appropriate)
     - http://www.threatcrowd.org
+  - OTX by AlienVault (API key and network I/O required)
+    - https://otx.alienvault.com
 
 # Resources:
 
@@ -138,6 +141,7 @@ You can get API keys at the sites below for your configuration file.
    - The Censys Python library - https://github.com/censys/censys-python and https://www.censys.io/api
    - The PassiveTotal Python library - https://passivetotal.readthedocs.io/en/latest/ and https://github.com/passivetotal/python_api
    - The ThreatCrowd Python library - https://github.com/threatcrowd/ApiV2 and https://github.com/jheise/threatcrowd_api
+   - The OTX Python Library - https://github.com/AlienVault-Labs/OTX-Python-SDK and https://otx.alienvault.com/api/
 
 # License
 This application is covered by the Creative Commons BY-SA license.

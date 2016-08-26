@@ -31,6 +31,8 @@ import libs.shodaninfo
 import libs.censysinfo
 # Local ThreatCrowd functions
 import libs.threatcrowdinfo
+# Local OTX functions
+import libs.otx
 
 #
 # COMMAND LINE ARGS
@@ -49,8 +51,7 @@ parser.add_argument('-p','--passivetotal', action='store_true', help='PassiveTot
 parser.add_argument('-s','--shodan', action='store_true', help='Shodan Lookup.')
 parser.add_argument('-c','--censys', action='store_true', help='Censys Lookup.')
 parser.add_argument('-t','--threatcrowd', action='store_true', help='ThreatCrowd Lookup.')
-# Maybe at a later time this can be added...
-#parser.add_argument('-n','--neutrino', action='store_true', help='NeutrinoAPI Lookup. (WORK IN PROGRESS)')
+parser.add_argument('-o','--otx', action='store_true', help='OTX by AlienVault Lookup.')
 
 #
 # MAIN PROGRAM
@@ -94,6 +95,9 @@ shodanpublicapi = ConfigFile.get('Shodan','PublicAPI')
 # Pull the Censys config
 censyssecret = ConfigFile.get('Censys','Secret')
 censyspublicapi = ConfigFile.get('Censys','PublicAPI')
+
+# Pull the OTX config
+otxpublicapi = ConfigFile.get('OTX','PublicAPI')
 
 # Open file and read into list named hosts
 try:
@@ -173,6 +177,13 @@ for host in hosts:
         if PrintHeaders:
             ThreatCrowd.add_headers(Headers)
         ThreatCrowd.add_row(host,row)
+
+    # Lookup OTX
+    if args.otx or args.all:
+        OTX = libs.otx.OTX(otxpublicapi)
+        if PrintHeaders:
+            OTX.add_headers(Headers)
+        OTX.add_row(host,row)
 
     # MODULES:  Add additional intelligence source modules here
         
