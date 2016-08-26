@@ -97,6 +97,9 @@ You can get API keys at the sites below for your configuration file.
 # License
 This application is covered by the Creative Commons BY-SA license.
 
+- https://creativecommons.org/licenses/by-sa/4.0/
+- https://creativecommons.org/licenses/by-sa/4.0/legalcode
+
 ```
 This product includes GeoLite2 data created by MaxMind, available from
 <a href="http://www.maxmind.com">http://www.maxmind.com</a>.
