@@ -62,7 +62,52 @@ $ python hostintel.py myconfigfile.conf myhosts.txt -a > myoutput.csv
 You should be able to import myoutput.csv into any database or spreadsheet program.
 
 **Note that depending on your network, your API key limits, and the data you are searching for,
-this script can run for a very long time!  Use each module sparingly!  In return for the long wait, you save yourself from having to pull this data manually.**
+this script can run for a very long time!  Use each module sparingly!  In return for the long
+wait, you save yourself from having to pull this data manually.**
+
+## Sample Data
+
+There is some sample data in the "sampledata" directory.  The IPs, domains, and hosts
+were picked at random and by no means is meant to target any organization or individual.
+Running this tool on the sample data works in the following way:
+
+### Small Hosts List
+```
+$ python hostintel.py local/config.conf sampledata/smalllist.txt -a > sampledata/smalllist.csv
+*** Processing 8.8.8.8 ***
+*** Processing 8.8.4.4 ***
+*** Processing 192.168.1.1 ***
+*** Processing 10.0.0.1 ***
+*** Processing google.com ***
+*** Processing 212.227.247.242 ***
+*** Writing Output ***
+```
+
+### Larger Hosts List
+```
+ python hostintel.py local/config.conf sampledata/largerlist.txt -a > sampledata/largerlist.csv
+*** Processing 114.34.84.13 ***
+*** Processing 116.102.34.212 ***
+*** Processing 118.75.180.168 ***
+*** Processing 123.195.184.13 ***
+*** Processing 14.110.216.236 ***
+*** Processing 14.173.147.69 ***
+*** Processing 14.181.192.151 ***
+*** Processing 146.120.11.66 ***
+*** Processing 163.172.149.131 ***
+
+...
+
+*** Processing 54.239.26.180 ***
+*** Processing 62.141.39.155 ***
+*** Processing 71.6.135.131 ***
+*** Processing 72.30.2.74 ***
+*** Processing 74.125.34.101 ***
+*** Processing 83.31.179.71 ***
+*** Processing 85.25.217.155 ***
+*** Processing 93.174.93.94 ***
+*** Writing Output ***
+```
 
 # Intelligence Sources:
 
