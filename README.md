@@ -72,7 +72,7 @@ You can get API keys at the sites below for your configuration file.
     - http://www.maxmind.com
   - DNS (Network I/O required)
     - https://github.com/rthalley/dnspython
-  - VirusTotal (Private API key and network I/O required, throttled when appropriate)
+  - VirusTotal (Public API key and network I/O required, throttled when appropriate)
     - http://www.virustotal.com
   - PassiveTotal (API key, username, and network I/O required)
     - http://www.passivetotal.com
