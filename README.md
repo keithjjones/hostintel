@@ -12,7 +12,7 @@ easily be able to import the data.
 
 ```
 $ python hostintel.py -h
-usage: hostintel.py [-h] [-a] [-d] [-v] [-p] [-s] [-c] [-t] [-o] [-i]
+usage: hostintel.py [-h] [-a] [-d] [-v] [-p] [-s] [-c] [-t] [-o] [-i] [-r]
                     ConfigurationFile InputFile
 
 Modular application to look up host intelligence information. Outputs CSV to
@@ -20,21 +20,22 @@ STDOUT. This application will not output information until it has finished all
 of the input.
 
 positional arguments:
-  ConfigurationFile   Configuration file
-  InputFile           Input file, one host per line (IP, domain, or FQDN host
-                      name)
+  ConfigurationFile     Configuration file
+  InputFile             Input file, one host per line (IP, domain, or FQDN
+                        host name)
 
 optional arguments:
-  -h, --help          show this help message and exit
-  -a, --all           Perform All Lookups.
-  -d, --dns           DNS Lookup.
-  -v, --virustotal    VirusTotal Lookup.
-  -p, --passivetotal  PassiveTotal Lookup.
-  -s, --shodan        Shodan Lookup.
-  -c, --censys        Censys Lookup.
-  -t, --threatcrowd   ThreatCrowd Lookup.
-  -o, --otx           OTX by AlienVault Lookup.
-  -i, --isc           Internet Storm Center DShield Lookup.
+  -h, --help            show this help message and exit
+  -a, --all             Perform All Lookups.
+  -d, --dns             DNS Lookup.
+  -v, --virustotal      VirusTotal Lookup.
+  -p, --passivetotal    PassiveTotal Lookup.
+  -s, --shodan          Shodan Lookup.
+  -c, --censys          Censys Lookup.
+  -t, --threatcrowd     ThreatCrowd Lookup.
+  -o, --otx             OTX by AlienVault Lookup.
+  -i, --isc             Internet Storm Center DShield Lookup.
+  -r, --carriagereturn  Use carriage returns with new lines on csv.
 ```
 
 # Install:

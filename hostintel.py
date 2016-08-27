@@ -55,6 +55,7 @@ parser.add_argument('-c','--censys', action='store_true', help='Censys Lookup.')
 parser.add_argument('-t','--threatcrowd', action='store_true', help='ThreatCrowd Lookup.')
 parser.add_argument('-o','--otx', action='store_true', help='OTX by AlienVault Lookup.')
 parser.add_argument('-i','--isc', action='store_true', help='Internet Storm Center DShield Lookup.')
+parser.add_argument('-r','--carriagereturn', action='store_true', help='Use carriage returns with new lines on csv.')
 
 #
 # MAIN PROGRAM
@@ -111,7 +112,10 @@ except:
     exit(1)
     
 # Setup CSV to STDOUT
-output = csv.writer(sys.stdout)
+if args.carriagereturn:
+    output = csv.writer(sys.stdout, lineterminator='\r\n')
+else:
+    output = csv.writer(sys.stdout, lineterminator='\n')
 
 # Add standard header info
 Headers.append('Input Host')
