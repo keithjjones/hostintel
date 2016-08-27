@@ -190,25 +190,20 @@ for host in hosts:
         # Add the row to the output data set
         Data.append(row)
 
+        # Print out the headers
+        if PrintHeaders:
+            output.writerow(Headers)
+
+        # Print out the data
+        output.writerow([unicode(field).encode('utf-8') for field in row])
+        
         # This turns off headers for remaining rows
         PrintHeaders = False
     except:
-        # There was an error, save data...
-        sys.stderr.write('ERROR:  An Exception was raised!  Saving data but the last line may be corrupt...\n')
-        output.writerow(Headers)
-        for row in Data:
-            output.writerow(row)
-        sys.stderr.write('ERROR:  Raising original Exception for dubugging...\n')
+        # There was an error...
+        sys.stderr.write('ERROR:  An exception was raised!  Raising original exception for debugging.\n')
         raise
         
-# Write the header
-sys.stderr.write('*** Writing Output ***\n')
-output.writerow(Headers)
-
-# Write each row
-for row in Data:
-    output.writerow(row)
-
 # Exit without error
 exit(0)
     
