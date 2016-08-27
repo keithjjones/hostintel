@@ -12,7 +12,7 @@ easily be able to import the data.
 
 ```
 $ python hostintel.py -h
-usage: hostintel.py [-h] [-a] [-d] [-v] [-p] [-s] [-c] [-t] [-o]
+usage: hostintel.py [-h] [-a] [-d] [-v] [-p] [-s] [-c] [-t] [-o] [-i]
                     ConfigurationFile InputFile
 
 Modular application to look up host intelligence information. Outputs CSV to
@@ -34,11 +34,14 @@ optional arguments:
   -c, --censys        Censys Lookup.
   -t, --threatcrowd   ThreatCrowd Lookup.
   -o, --otx           OTX by AlienVault Lookup.
+  -i, --isc           Internet Storm Center DShield Lookup.
 ```
 
 # Install:
 First, make sure your configuration file is correct for your computer/installation.
-Add your API keys and usernames as appropriate in the configuration file.
+Add your API keys and usernames as appropriate in the configuration file.  There are modules that must
+be installed from GitHub, so be sure the git command is available from your command line.  Git is easy to
+install for any platform.
 Next, install the python requirements (run this each time you git pull this repository too):
 
 ```
@@ -130,6 +133,8 @@ You can get API keys at the sites below for your configuration file.
     - http://www.threatcrowd.org
   - OTX by AlienVault (API key and network I/O required)
     - https://otx.alienvault.com
+  - Internet Storm Center (Network I/O required)
+    - https://isc.sans.edu
 
 # Resources:
 
@@ -142,6 +147,7 @@ You can get API keys at the sites below for your configuration file.
    - The PassiveTotal Python library - https://passivetotal.readthedocs.io/en/latest/ and https://github.com/passivetotal/python_api
    - The ThreatCrowd Python library - https://github.com/threatcrowd/ApiV2 and https://github.com/jheise/threatcrowd_api
    - The OTX Python Library - https://github.com/AlienVault-Labs/OTX-Python-SDK and https://otx.alienvault.com/api/
+   - The Internet Storm Center DShield Python Library - https://github.com/rshipp/python-dshield and https://isc.sans.edu/api/
 
 # License
 This application is covered by the Creative Commons BY-SA license.

@@ -33,6 +33,8 @@ import libs.censysinfo
 import libs.threatcrowdinfo
 # Local OTX functions
 import libs.otx
+# Local ISC DShield functions
+import libs.isc
 
 #
 # COMMAND LINE ARGS
@@ -52,6 +54,7 @@ parser.add_argument('-s','--shodan', action='store_true', help='Shodan Lookup.')
 parser.add_argument('-c','--censys', action='store_true', help='Censys Lookup.')
 parser.add_argument('-t','--threatcrowd', action='store_true', help='ThreatCrowd Lookup.')
 parser.add_argument('-o','--otx', action='store_true', help='OTX by AlienVault Lookup.')
+parser.add_argument('-i','--isc', action='store_true', help='Internet Storm Center DShield Lookup.')
 
 #
 # MAIN PROGRAM
@@ -184,6 +187,13 @@ for host in hosts:
             if PrintHeaders:
                 OTX.add_headers(Headers)
             OTX.add_row(host,row)
+
+        # Lookup ISC DShield
+        if args.isc or args.all:
+            ISC = libs.isc.ISC()
+            if PrintHeaders:
+                ISC.add_headers(Headers)
+            ISC.add_row(host,row)
 
         # MODULES:  Add additional intelligence source modules here
 
