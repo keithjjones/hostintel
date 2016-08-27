@@ -42,7 +42,9 @@ optional arguments:
 
 # Install:
 First, make sure your configuration file is correct for your computer/installation.
-Add your API keys and usernames as appropriate in the configuration file.  There are modules that must
+Add your API keys and usernames as appropriate in the configuration file.
+Python and Pip are required to run this tool.  
+There are modules that must
 be installed from GitHub, so be sure the git command is available from your command line.  Git is easy to
 install for any platform.
 Next, install the python requirements (run this each time you git pull this repository too):
@@ -151,6 +153,10 @@ You can get API keys at the sites below for your configuration file.
    - The ThreatCrowd Python library - https://github.com/threatcrowd/ApiV2 and https://github.com/jheise/threatcrowd_api
    - The OTX Python Library - https://github.com/AlienVault-Labs/OTX-Python-SDK and https://otx.alienvault.com/api/
    - The Internet Storm Center DShield Python Library - https://github.com/rshipp/python-dshield and https://isc.sans.edu/api/
+
+# Notes
+
+Crude notes are available [here](notes/Notes.png).
 
 # License
 This application is covered by the Creative Commons BY-SA license.
