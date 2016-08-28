@@ -7,6 +7,8 @@ import time
 
 import censys.ipv4
 
+import sys
+
 # Local network functions
 import libs.network
 
