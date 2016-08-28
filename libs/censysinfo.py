@@ -33,8 +33,8 @@ class Censys(object):
                 self.NeedConnection = True
                 time.sleep(60)
             except:
-                    sys.stderr.write('ERROR: Censys API Credential Issue!\n')
-                    raise
+                sys.stderr.write('ERROR: Censys API Credential Issue!\n')
+                raise
             
     
     """
