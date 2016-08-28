@@ -3,12 +3,12 @@
 This tool is used to collect various intelligence sources for hosts.
 Hostintel is written in a modular fashion so new intelligence sources can be
 easily added.
-Hosts are identified by FQDN host name, Domain, or IP address.
-This tool only supports IPv4 at the moment.
-The output is in CSV format and sent to STDOUT
-so the data can be saved or piped into another program.
-Since the output is in CSV format, spreadsheets such as Excel or database systems will
-easily be able to import the data.
+
+Hosts are identified by FQDN host name, Domain, or IP address.  This
+tool only supports IPv4 at the moment.  The output is in CSV format
+and sent to STDOUT so the data can be saved or piped into another
+program.  Since the output is in CSV format, spreadsheets such as
+Excel or database systems will easily be able to import the data.
 
 I created a short introduction for this tool on YouTube: https://youtu.be/aYK0gILDA6w
 
@@ -41,19 +41,24 @@ optional arguments:
 ```
 
 # Install:
-First, make sure your configuration file is correct for your computer/installation.
-Add your API keys and usernames as appropriate in the configuration file.
-Python and Pip are required to run this tool.  There are modules that must
-be installed from GitHub, so be sure the git command is available from your command line.  Git is easy to
-install for any platform.  Next, install the python requirements
+
+First, make sure your configuration file is correct for your
+computer/installation.  Add your API keys and usernames as appropriate
+in the configuration file.  Python and Pip are required to run this
+tool.  There are modules that must be installed from GitHub, so be
+sure the git command is available from your command line.  Git is easy
+to install for any platform.  Next, install the python requirements
 (run this each time you git pull this repository too):
 
 ```
 $ pip install -r requirements.txt
 ```
 
-There have been some problems with the stock version of Python on Mac OSX (http://stackoverflow.com/questions/31649390/python-requests-ssl-handshake-failure).  You may have to
-install the security portion of the requests library with the following command:
+There have been some problems with the stock version of Python on Mac
+OSX
+(http://stackoverflow.com/questions/31649390/python-requests-ssl-handshake-failure).
+You may have to install the security portion of the requests library
+with the following command:
 
 ```
 $ pip install requests[security]
