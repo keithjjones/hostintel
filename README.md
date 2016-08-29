@@ -177,6 +177,6 @@ This product includes GeoLite2 data created by MaxMind, available from
 
 Read [Contributing.md] (Contributing.md)
 
-# TODO
+# To Do:
 
  - Try to incorporate https://github.com/mlsecproject/combine
