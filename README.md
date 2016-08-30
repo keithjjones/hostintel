@@ -12,6 +12,8 @@ Excel or database systems will easily be able to import the data.
 
 I created a short introduction for this tool on YouTube: https://youtu.be/aYK0gILDA6w
 
+## Help Screen:
+
 ```
 $ python hostintel.py -h
 usage: hostintel.py [-h] [-a] [-d] [-v] [-p] [-s] [-c] [-t] [-o] [-i] [-r]
