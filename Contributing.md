@@ -2,7 +2,7 @@
 
 Fork, edit, and send me a merge request to the "devel" branch.
 
-Modules are stored in the "lib" directory.  Each module for a new intelligence source
+Modules are stored in the "libs" directory.  Each module for a new intelligence source
 requires two functions:
 
 ```
