@@ -42,7 +42,7 @@ import libs.isc
 
 # Setup command line argument parsing.
 parser = argparse.ArgumentParser(
-    description='Modular application to look up host intelligence information. Outputs CSV to STDOUT. This application will not output information until it has finished all of the input.')
+    description='Modular application to look up host intelligence information. Outputs CSV to STDOUT.')
 parser.add_argument('ConfigurationFile', help='Configuration file')
 parser.add_argument('InputFile',
                     help='Input file, one host per line (IP, domain, or FQDN host name)')
