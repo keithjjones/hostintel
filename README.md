@@ -80,13 +80,13 @@ You should be able to import myoutput.csv into any database or spreadsheet progr
 this script can run for a very long time!  Use each module sparingly!  In return for the long
 wait, you save yourself from having to pull this data manually.**
 
-## Sample Data
+## Sample Data:
 
 There is some sample data in the "sampledata" directory.  The IPs, domains, and hosts
 were picked at random and by no means is meant to target any organization or individual.
 Running this tool on the sample data works in the following way:
 
-### Small Hosts List
+### Small Hosts List:
 ```
 $ python hostintel.py local/config.conf sampledata/smalllist.txt -a > sampledata/smalllist.csv
 *** Processing 8.8.8.8 ***
@@ -98,7 +98,7 @@ $ python hostintel.py local/config.conf sampledata/smalllist.txt -a > sampledata
 *** Writing Output ***
 ```
 
-### Larger Hosts List
+### Larger Hosts List:
 ```
 $ python hostintel.py local/config.conf sampledata/largerlist.txt -a > sampledata/largerlist.csv
 *** Processing 114.34.84.13 ***
@@ -164,7 +164,8 @@ You can get API keys at the sites below for your configuration file.
 
 Crude notes are available [here](notes/Notes.png).
 
-# License
+# License:
+
 This application is covered by the Creative Commons BY-SA license.
 
 - https://creativecommons.org/licenses/by-sa/4.0/
