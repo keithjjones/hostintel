@@ -152,16 +152,31 @@ You can get API keys at the sites below for your configuration file.
 
 # Resources:
 
-   - The GeoIP2 Python library - https://github.com/maxmind/GeoIP2-python
-   - The Python DNS library - https://github.com/rthalley/dnspython
+   - The GeoIP2 Python library
+     - https://github.com/maxmind/GeoIP2-python
+   - The Python DNS library
+     - https://github.com/rthalley/dnspython
      - Foundation of DNS lookups inspired by http://www.iodigitalsec.com/performing-dns-queries-python/
-   - The VirusTotal Python library - https://github.com/blacktop/virustotal-api
-   - The Shodan Python library - http://shodan.readthedocs.io/en/latest/ and https://github.com/achillean/shodan-python
-   - The Censys Python library - https://github.com/censys/censys-python and https://www.censys.io/api
-   - The PassiveTotal Python library - https://passivetotal.readthedocs.io/en/latest/ and https://github.com/passivetotal/python_api
-   - The ThreatCrowd Python library - https://github.com/threatcrowd/ApiV2 and https://github.com/jheise/threatcrowd_api
-   - The OTX Python Library - https://github.com/AlienVault-Labs/OTX-Python-SDK and https://otx.alienvault.com/api/
-   - The Internet Storm Center DShield Python Library - https://github.com/rshipp/python-dshield and https://isc.sans.edu/api/
+   - The VirusTotal Python library
+     - https://github.com/blacktop/virustotal-api
+   - The Shodan Python library
+     - http://shodan.readthedocs.io/en/latest/
+     - https://github.com/achillean/shodan-python
+   - The Censys Python library
+     - https://github.com/censys/censys-python
+     - https://www.censys.io/api
+   - The PassiveTotal Python library
+     - https://passivetotal.readthedocs.io/en/latest/
+     - https://github.com/passivetotal/python_api
+   - The ThreatCrowd Python library
+     - https://github.com/threatcrowd/ApiV2
+     - https://github.com/jheise/threatcrowd_api
+   - The OTX Python Library
+     - https://github.com/AlienVault-Labs/OTX-Python-SDK
+     - https://otx.alienvault.com/api/
+   - The Internet Storm Center DShield Python Library
+     - https://github.com/rshipp/python-dshield
+     - https://isc.sans.edu/api/
 
 # Notes:
 
