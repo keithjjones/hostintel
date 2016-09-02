@@ -202,3 +202,4 @@ Read [Contributing.md] (Contributing.md)
 
  - Try to incorporate https://github.com/mlsecproject/combine
  - Try to incorporate threat feeds from http://www.secrepo.com/
+ - Add Malwr
