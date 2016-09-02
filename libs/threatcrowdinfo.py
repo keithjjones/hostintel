@@ -37,10 +37,18 @@ class ThreatCrowd(object):
     def add_row(self,host,inputrow):
         time.sleep(10)  # Time speficied in API documents to be nice.
 
-        if libs.network.IsIPv4(host):            
-            tcdata = threatcrowd.ip_report(host)
-        else:
-            tcdata = threatcrowd.domain_report(host)
+        IsValid = False
+
+        # TC sometimes has a bad SSL handshake, this should fix it
+        while IsValid == False:
+            try:
+                if libs.network.IsIPv4(host):            
+                    tcdata = threatcrowd.ip_report(host)
+                else:
+                    tcdata = threatcrowd.domain_report(host)
+                IsValid = True
+            except:
+                IsValid = False
         
         tcurl = tcdata.get('permalink','https://www.threatcrowd.org/ip.php?ip={}'.format(host))
         
