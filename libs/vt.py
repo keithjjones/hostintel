@@ -13,6 +13,7 @@ import libs.network
 # CLASSES
 #
 
+
 class VT(object):
     """
     Class to hold VirusTotal items.
@@ -28,65 +29,82 @@ class VT(object):
         self.vtpublicapi = vtpublicapi
         self.vt = VirusTotalPublicApi(self.vtpublicapi)
 
-    """
-    Adds appropriate headers to input list.
-    """
-    def add_headers(self,inputheaders):
+    def add_headers(self, inputheaders):
+        """
+        Adds appropriate headers to input list.
+        """
         inputheaders.append('VirusTotal Detected URLs')
         inputheaders.append('VirusTotal Detected Communicating Samples')
         inputheaders.append('VirusTotal Detected Downloaded Samples')
         inputheaders.append('VirusTotal Link')
 
-    """
-    Adds the pulled data to the input row.
-    """
-    def add_row(self,host,inputrow):
+    def add_row(self, host, inputrow):
+        """
+        Adds the pulled data to the input row.
+        """
 
         vtdetectedurls = vtdetectedcommunicatingsamples = \
             vtdetecteddownloadedsamples = vturl = ''
-        
+
         if libs.network.IsIPv4(host):
             vtresponse = self.vt.get_ip_report(host)
-            while vtresponse["response_code"] != 200 and vtresponse["response_code"] != 403:
+            while "response_code" not in vtresponse or \
+                    (vtresponse["response_code"] != 200 and
+                     vtresponse["response_code"] != 403):
                 time.sleep(60)  # Sleep for the API throttling
                 vtresponse = self.vt.get_ip_report(host)
-            if not vtresponse.has_key("results"):
-                vtdetectedurls = "INVALID API KEY"            
-            elif vtresponse["results"].has_key("detected_urls"):
-                vtdetectedurls = str(len(vtresponse["results"]["detected_urls"]))
+            if "results" not in vtresponse:
+                vtdetectedurls = "INVALID API KEY"
+            elif "detected_urls" in vtresponse["results"]:
+                vtdetectedurls = str(len(vtresponse["results"]
+                                     ["detected_urls"]))
             else:
                 vtdetectedurls = str(0)
-            if not vtresponse.has_key("results"):
+            if "results" not in vtresponse:
                 vtdetectedcommunicatingsamples = "INVALID API KEY"
-            elif vtresponse["results"].has_key("detected_communicating_samples"):
-                vtdetectedcommunicatingsamples = str(len(vtresponse["results"]["detected_communicating_samples"]))
+            elif "detected_communicating_samples" in vtresponse["results"]:
+                vtdetectedcommunicatingsamples = str(len(vtresponse["results"]
+                                                         ["detected_"
+                                                          "communicating_"
+                                                          "samples"]))
             else:
                 vtdetectedcommunicatingsamples = str(0)
-            vturl = "https://www.virustotal.com/en/ip-address/{}/information/".format(host)
+            vturl = "https://www.virustotal.com/en/ip-address/{}/information/"\
+                    .format(host)
         else:
             vtresponse = self.vt.get_domain_report(host)
-            while vtresponse["response_code"] != 200 and vtresponse["response_code"] != 403:
+            while "response_code" not in vtresponse or \
+                    (vtresponse["response_code"] != 200 and
+                     vtresponse["response_code"] != 403):
                 time.sleep(60)  # Sleep for the API throttling
                 vtresponse = self.vt.get_domain_report(host)
-            if not vtresponse.has_key("results"):
+            if "results" not in vtresponse:
                 vtdetectedurls = "INVALID API KEY"
-            elif vtresponse["results"].has_key("detected_urls"):
-                vtdetectedurls = str(len(vtresponse["results"]["detected_urls"]))
+            elif "detected_urls" in vtresponse["results"]:
+                vtdetectedurls = str(len(vtresponse["results"]
+                                         ["detected_urls"]))
             else:
                 vtdetectedurls = str(0)
-            if not vtresponse.has_key("results"):
+            if "results" not in vtresponse:
                 vtdetectedcommunicatingsamples = "INVALID API KEY"
-            elif vtresponse["results"].has_key("detected_communicating_samples"):
-                vtdetectedcommunicatingsamples = str(len(vtresponse["results"]["detected_communicating_samples"]))
+            elif "detected_communicating_samples" in vtresponse["results"]:
+                vtdetectedcommunicatingsamples = str(len(vtresponse["results"]
+                                                         ["detected_"
+                                                          "communicating_"
+                                                          "samples"]))
             else:
                 vtdetectedcommunicatingsamples = str(0)
-            if not vtresponse.has_key("results"):
+            if "results" not in vtresponse:
                 vtdetecteddownloadedsamples = "INVALID API KEY"
-            elif vtresponse["results"].has_key("detected_downloaded_samples"):
-                vtdetecteddownloadedsamples = str(len(vtresponse["results"]["detected_downloaded_samples"]))
+            elif "detected_downloaded_samples" in vtresponse["results"]:
+                vtdetecteddownloadedsamples = str(len(vtresponse["results"]
+                                                      ["detected_"
+                                                       "downloaded_"
+                                                       "samples"]))
             else:
                 vtdetecteddownloadedsamples = str(0)
-            vturl = "https://www.virustotal.com/en/domain/{}/information/".format(host)
+            vturl = "https://www.virustotal.com/en/domain/{}/information/"\
+                    .format(host)
 
         inputrow.append(vtdetectedurls)
         inputrow.append(vtdetectedcommunicatingsamples)
