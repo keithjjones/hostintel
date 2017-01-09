@@ -204,3 +204,4 @@ Read [Contributing.md] (Contributing.md)
  - Try to incorporate threat feeds from http://www.secrepo.com/
  - Add Malwr
  - Add column to display if input was IPv4, domain, or hostname
+ - Look at https://github.com/Yelp/threat_intel
