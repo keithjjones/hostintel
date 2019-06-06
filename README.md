@@ -196,7 +196,7 @@ This product includes GeoLite2 data created by MaxMind, available from
 
 # Contributing:
 
-Read [Contributing.md] (Contributing.md)
+Read [Contributing.md](Contributing.md)
 
 # To Do:
 
