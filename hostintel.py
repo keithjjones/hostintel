@@ -209,7 +209,11 @@ for host in hosts:
             output.writerow(Headers)
 
         # Print out the data
-        output.writerow([unicode(field).encode('utf-8') for field in row])
+        try:
+            output.writerow([unicode(field).encode('utf-8') for field in row])
+        except:
+            output.writerow([str(field) for field in row])
+
         
         # This turns off headers for remaining rows
         PrintHeaders = False
