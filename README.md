@@ -12,8 +12,8 @@ Excel or database systems will easily be able to import the data.
 
 I created a short introduction for this tool on YouTube: https://youtu.be/aYK0gILDA6w
 
-This works with Python v2, but it should also work with Python v3.  If you find it does not work
-with Python v3 please post an issue.
+This works with Python v2 and Python v3. If you find it does not workwith Python v3 
+please post an issue.
 
 ## Help Screen:
 
