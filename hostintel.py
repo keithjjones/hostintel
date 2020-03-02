@@ -9,7 +9,7 @@ import libs.network
 # Required for complex command line argument parsing.
 import argparse
 # Required for configuration files
-import ConfigParser
+from configparser import ConfigParser
 # Required for CSV
 import csv
 # Required for STDOUT
@@ -65,7 +65,7 @@ parser.add_argument('-r','--carriagereturn', action='store_true', help='Use carr
 args = parser.parse_args()
 
 # Parse Configuration File
-ConfigFile = ConfigParser.ConfigParser()
+ConfigFile = ConfigParser()
 ConfigFile.read(args.ConfigurationFile)
 
 # Setup the headers list
