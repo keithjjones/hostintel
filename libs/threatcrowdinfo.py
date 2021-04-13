@@ -55,9 +55,9 @@ class ThreatCrowd(object):
         tcresolutions = tcdata.get('resolutions',[])
         tcresolutionslist = []
         for resolution in tcresolutions:
-            if resolution.has_key('domain'):
+            if 'domain' in resolution:
                 tcresolutionslist.append(resolution.get('domain',''))
-            elif resolution.has_key('ip_address'):
+            elif 'ip_address' in resolution:
                 tcresolutionslist.append(resolution.get('ip_address',''))
         tcresolutionsout = len(tcresolutionslist)
 
