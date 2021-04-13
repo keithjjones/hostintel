@@ -93,6 +93,10 @@ class OTX(object):
                 otxgendata = {}
                 otxrepdata = {}
                 otxurl = "Invalid Domain"
+            except OTXv2.NotFound:
+                otxgendata = {}
+                otxrepdata = {}
+                otxurl = "OTX DID NOT RETURN INFO!"
             except AttributeError:
                 otxgendata = {}
                 otxrepdata = {}
