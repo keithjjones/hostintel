@@ -4,6 +4,7 @@
 
 # Mac Files
 .DS_Store
+.idea/
 
 # Local Directory
 local/

@@ -61,50 +61,38 @@ class PT(object):
         
         whoisdata = self.ptwhois.get_whois_details(query=host)
         
-        if whoisdata.has_key('contactEmail'):
-            whoiscontactemail = whoisdata['contactEmail']
-        else:
-            whoiscontactemail = ''
+        whoiscontactemail = whoisdata.get('contactEmail', '')
 
-        if whoisdata.has_key('whoisServer'):
-            whoiswhoisserver = whoisdata['whoisServer']
-        else:
-            whoiswhoisserver = ''
+        whoiswhoisserver = whoisdata.get('whoisServer', '')
 
-        if whoisdata.has_key('registryUpdatedAt'):
-            whoisregistryupdated = whoisdata['registryUpdatedAt']
-        else:
-            whoisregistryupdated = ''
+        whoisregistryupdated = whoisdata.get('registryUpdatedAt', '')
 
-        if whoisdata.has_key('admin') and whoisdata['admin'].has_key('organization'):
-            whoisadminorg = whoisdata['admin']['organization']
+        if 'admin' in whoisdata and 'organization' in whoisdata['admin']:
+            whoisadminorg = whoisdata['admin'].get('organization', '')
         else:
             whoisadminorg = ''
 
-        if whoisdata.has_key('tech') and whoisdata['tech'].has_key('organization'):
+        if 'tech' in whoisdata and 'organization' in whoisdata['tech']:
             whoistechorg = whoisdata['tech']['organization']
         else:
             whoistechorg = ''
 
-        if whoisdata.has_key('registrant') and whoisdata['registrant'].has_key('organization'):
+        if 'registrant' in whoisdata and 'organization' in whoisdata['registrant']:
             whoisregistrantorg = whoisdata['registrant']['organization']
         else:
             whoisregistrantorg = ''
 
-        if whoisdata.has_key('registrant') and whoisdata['registrant'].has_key('name'):
+        if 'registrant' in whoisdata and 'name' in whoisdata['registrant']:
             whoisregistrantname = whoisdata['registrant']['name']
         else:
             whoisregistrantname = ''
 
-        if whoisdata.has_key('registrant') and whoisdata['registrant'].has_key('country'):
+        if 'registrant' in whoisdata and 'country' in whoisdata['registrant']:
             whoisregistrantcountry = whoisdata['registrant']['country']
         else:
             whoisregistrantcountry = ''
 
-        if whoisdata.has_key('registrar'):
-            whoisregistrar = whoisdata['registrar']
-        else:
-            whoisregistrar = ''
+        whoisregistrar = whoisdata.get('registrar', '')
 
         inputrow.append(whoiscontactemail)
         inputrow.append(whoiswhoisserver)
@@ -120,70 +108,37 @@ class PT(object):
         
         enrichmentdata = self.ptenrichment.get_enrichment(query=host)
 
-        if enrichmentdata.has_key('network'):
-            enrichmentnetwork = enrichmentdata['network']
-        else:
-            enrichmentnetwork = ''
+        enrichmentnetwork = enrichmentdata.get('network', '')
 
-        if enrichmentdata.has_key('tags'):
+        if 'tags' in enrichmentdata:
             enrichmenttags = '; '.join(enrichmentdata['tags'])
         else:
             enrichmenttags = ''
 
-        if enrichmentdata.has_key('country'):
-            enrichmentcountry = enrichmentdata['country']
-        else:
-            enrichmentcountry = ''
+        enrichmentcountry = enrichmentdata.get('country', '')
 
-        if enrichmentdata.has_key('longitude'):
-            enrichmentlong = enrichmentdata['longitude']
-        else:
-            enrichmentlong = ''
+        enrichmentlong = enrichmentdata.get('longitude', '')
 
-        if enrichmentdata.has_key('latitude'):
-            enrichmentlat = enrichmentdata['latitude']
-        else:
-            enrichmentlat = ''
+        enrichmentlat = enrichmentdata.get('latitude', '')
 
-        if enrichmentdata.has_key('sinkhole'):
-            enrichmentsinkhole = enrichmentdata['sinkhole']
-        else:
-            enrichmentsinkhole = ''
+        enrichmentsinkhole = enrichmentdata.get('sinkhole', '')
 
-        if enrichmentdata.has_key('autonomousSystemNumber'):
-            enrichmentasn = enrichmentdata['autonomousSystemNumber']
-        else:
-            enrichmentasn = ''
+        enrichmentasn = enrichmentdata.get('autonomousSystemNumber', '')
 
-        if enrichmentdata.has_key('autonomousSystemName'):
-            enrichmentasnname = enrichmentdata['autonomousSystemName']
-        else:
-            enrichmentasnname = ''
+        enrichmentasnname = enrichmentdata.get('autonomousSystemName', '')
 
-        if enrichmentdata.has_key('everCompromised'):
-            enrichmentevercompromised = enrichmentdata['everCompromised']
-        else:
-            enrichmentevercompromised = ''
+        enrichmentevercompromised = enrichmentdata.get('everCompromised', '')
 
-        if enrichmentdata.has_key('primaryDomain'):
-            enrichmentprimarydomain = enrichmentdata['primaryDomain']
-        else:
-            enrichmentprimarydomain = ''
+        enrichmentprimarydomain = enrichmentdata.get('primaryDomain', '')
 
-        if enrichmentdata.has_key('dynamicDns'):
-            enrichmentdynamicdns = enrichmentdata['dynamicDns']
-        else:
-            enrichmentdynamicdns = ''
+        enrichmentdynamicdns = enrichmentdata.get('dynamicDns', '')
 
-        if enrichmentdata.has_key('subdomains'):
+        if 'subdomains' in enrichmentdata:
             enrichmentsubdomains = '; '.join(enrichmentdata['subdomains'])
         else:
             enrichmentsubdomains = ''
 
-        if enrichmentdata.has_key('tld'):
-            enrichmenttld = enrichmentdata['tld']
-        else:
-            enrichmenttld = ''
+        enrichmenttld = enrichmentdata.get('tld', '')
 
         inputrow.append(enrichmentnetwork)
         inputrow.append(enrichmenttags)
@@ -203,7 +158,7 @@ class PT(object):
         
         malwaredata = self.ptenrichment.get_malware(query=host)
 
-        if malwaredata.has_key('results'):
+        if 'results' in malwaredata:
             malwarestring = len(malwaredata['results'])
         else:
             malwarestring = 'INVALID CREDENTIALS'
@@ -214,7 +169,7 @@ class PT(object):
         
         osintdata = self.ptenrichment.get_osint(query=host)
 
-        if osintdata.has_key('results'):
+        if 'results' in osintdata:
             osintstring = len(osintdata['results'])
         else:
             osintstring = 'INVALID CREDENTIALS'
