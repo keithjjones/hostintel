@@ -4,6 +4,7 @@
 
 # Required for GeoIP2 lookups
 import geoip2.database
+import sys
 
 #
 # CLASSES
@@ -22,7 +23,11 @@ class GeoIP(object):
     def __init__(self,databasepath):
         self.dbpath = databasepath
         # Open the GEOIP2 database, exception if cannot
-        self.geoip = geoip2.database.Reader(self.dbpath)
+        try:
+            self.geoip = geoip2.database.Reader(self.dbpath)
+        except Exception:
+            sys.stderr.write('ERROR:  Cannot open GeoIP Database!\n')
+            exit(1)
 
     """
     Adds appropriate headers to input list.
@@ -47,7 +52,7 @@ class GeoIP(object):
             inputrow.append(geodata.subdivisions.most_specific.name)
             inputrow.append(geodata.location.latitude)
             inputrow.append(geodata.location.longitude)
-        except:
+        except Exception:
             inputrow.append('')
             inputrow.append('')
             inputrow.append('')

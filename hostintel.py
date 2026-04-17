@@ -82,7 +82,7 @@ geoip2citydb = ConfigFile.get('GeoIP2','City_Path')
 # Setup GeoIP object
 try:    
     GeoIP = libs.geoip.GeoIP(geoip2citydb)
-except:
+except Exception:
     sys.stderr.write("ERROR:  Cannot open GeoIP Database!\n")
     exit(1)
 
@@ -107,7 +107,7 @@ otxpublicapi = ConfigFile.get('OTX','PublicAPI')
 try:
     with open(args.InputFile) as infile:
         hosts = infile.read().splitlines()
-except:
+except Exception:
     sys.stderr.write("ERROR:  Cannot open InputFile!\n")
     exit(1)
     
@@ -211,13 +211,13 @@ for host in hosts:
         # Print out the data
         try:
             output.writerow([unicode(field).encode('utf-8') for field in row])
-        except:
+        except Exception:
             output.writerow([str(field) for field in row])
 
         
         # This turns off headers for remaining rows
         PrintHeaders = False
-    except:
+    except Exception:
         # There was an error...
         sys.stderr.write('ERROR:  An exception was raised!  Raising original exception for debugging.\n')
         raise
