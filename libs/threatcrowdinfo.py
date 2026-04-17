@@ -47,7 +47,7 @@ class ThreatCrowd(object):
                 else:
                     tcdata = threatcrowd.domain_report(host)
                 IsValid = True
-            except:
+            except Exception:
                 IsValid = False
         
         tcurl = tcdata.get('permalink','https://www.threatcrowd.org/ip.php?ip={}'.format(host))

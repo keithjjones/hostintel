@@ -55,5 +55,5 @@ def DNSLookupHost(host):
             return dns.resolver.query(ReverseAddress(host),'PTR')
         else:
             return dns.resolver.query(host,'A')
-    except:
+    except Exception:
         return []

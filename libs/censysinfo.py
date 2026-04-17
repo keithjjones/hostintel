@@ -32,7 +32,7 @@ class Censys(object):
             except censys.base.CensysRateLimitExceededException:
                 self.NeedConnection = True
                 time.sleep(60)
-            except:
+            except Exception:
                 sys.stderr.write('ERROR: Censys API Credential Issue!\n')
                 raise
             
@@ -145,9 +145,9 @@ class Censys(object):
             try:
                 censysipv4query.next()
                 inputrow.append(str(True))
-            except:
+            except Exception:
                 inputrow.append(str(False))            
-        except:
+        except Exception:
             inputrow.append('')
             
         
